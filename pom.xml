@@ -137,6 +137,8 @@
 				<includes>
 					<include>**/*.xml</include>
 					<include>application.properties</include>
+					<include>application-local.properties</include>
+
 					<include>application-prod.properties</include>
 				</includes>
 			</resource>
