@@ -25,10 +25,10 @@ public class EmailVerificationListener implements ApplicationListener<UserRegist
     @Override
     public void onApplicationEvent(UserRegistrationEvent event) {
         UserDto user = event.getUser();
-        String username = user.getUsername();
-        //사용자 등록시 생성된 verificationId를 조회한다.
-        String verificationId = emailVerificationService.generateVerification(username);
         String email = user.getEmail();
+        //사용자 등록시 생성된 verificationId를 조회한다.
+        String verificationId = emailVerificationService.generateVerification(email);
+
 
         //메시지 세팅
         SimpleMailMessage message = new SimpleMailMessage();
@@ -43,12 +43,12 @@ public class EmailVerificationListener implements ApplicationListener<UserRegist
 
     private String getText(UserDto user, String verificationId){
 
-        String encodedVerificationId = new String(Base64.getEncoder().encode(verificationId.getBytes()));
+
 
         StringBuffer buffer = new StringBuffer();
         buffer.append(user.getUsername()).append("님 댕놀자 가입을 환영합니다. ").append(System.lineSeparator()).append(System.lineSeparator());
 
-        buffer.append("계정 활성화를 위해 다음 링크로 접속해주세요 : http://localhost:8080/verify/email?id=").append(encodedVerificationId);
+        buffer.append("계정 활성화를 위해 다음 링크로 접속해주세요 : http://localhost:8080/verify/email?id=").append(verificationId);
         buffer.append(System.lineSeparator()).append(System.lineSeparator());
         buffer.append("올림,").append(System.lineSeparator()).append("댕놀자 Team");
         return buffer.toString();

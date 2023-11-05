@@ -8,8 +8,8 @@ import java.util.Optional;
 @Mapper
 public interface EmailVerificationMapper {
 
-    Optional<EmailVerification> findById(String verificationId);
-    Optional<EmailVerification> findByEmail(String email);
+    EmailVerification findById(String verificationId);
+    EmailVerification findByEmail(String email);
     void save(EmailVerification emailVerification);
 
 }

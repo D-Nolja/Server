@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dang.dnolja.email.model.mapper.EmailVerificationMapper">
+
+    <select id="findById" parameterType="String" resultType="com.dang.dnolja.email.model.dto.EmailVerification">
+        select verification_id, useremail
+        from EMAIL_VERIFICATIONS
+        where verification_id = #{verificationId}
+    </select>
+
+
+
+    <select id="findByEmail" parameterType="String" resultType="com.dang.dnolja.email.model.dto.EmailVerification">
+        select verification_id, useremail
+        from EMAIL_VERIFICATIONS
+        where useremail = #{email}
+    </select>
+
+
+    <insert id="save" parameterType="emailVerification">
+        insert into EMAIL_VERIFICATIONS (verification_id, useremail)
+        values (#{verificationId}, #{email})
+    </insert>
+
+
+</mapper>
