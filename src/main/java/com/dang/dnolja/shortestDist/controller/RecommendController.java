@@ -30,8 +30,11 @@ public class RecommendController {
 
         log.info("[RecommendController recommendSpot] request :: {}", request);
         List<RecommendDto> result = recommendShortestService.recommendSpotFrom(x,y,limit, maxCount);
+        if(result.size() ==0){
+            throw new IllegalArgumentException("요청하신 위치를 기준으로 최단거리 내 관광지 데이터가 존재하지 않습니다. url을 재확인해주세요");
+        }
 
-        return new CommonResponse(ResultCode.SUCCESS, result);
+        return new CommonResponse(result);
     }
 
 }
