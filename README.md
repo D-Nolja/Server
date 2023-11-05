@@ -40,7 +40,17 @@
 ![image](https://github.com/D-Nolja/Server/assets/119592507/17b3200f-b575-4691-996d-b5bc06859546)
 
 1. 회원가입시 uuid를 생성하여 EmailValidation 테이블의 유저 이메일과 함께 저장
-2. uuid로 valid check url을 생성하여 유저에게 이메일 발송
-3. 유저가 클릭시 유저 도메인 내 verified 업데이트 됨 
+2. 동시에 ApplicationEventPublisher로 등록 이벤트를 발생시킴 
+3. 등록 이벤트 발생과 동시에 EventListener에서 uuid를 생성한 후 uuid를 활용해 valid check url을 생성하여 유저에게 이메일 발송
+4. 유저가 클릭시 url 내 uuid를 활용해 EmailValidation 테이블 내 칼럼을 찾은 후 email을 바탕으로 유저를 찾아 유저 도메인 내 verified 업데이트 됨 
+
+소스코드 1. EmailVerificaionService 
+![image](https://github.com/D-Nolja/Server/assets/119592507/fa211c00-7933-4b30-ae4b-a8b2698af48e)
+
+소스코드 2. EmailVeirifcatio Controller 
+![image](https://github.com/D-Nolja/Server/assets/119592507/d7ee2292-f42d-4d0e-b364-45edbc2c81e8)
+
+소스코드 3. EmailVerification Listener
+![image](https://github.com/D-Nolja/Server/assets/119592507/0a183e03-0d43-4224-9cfa-0f8a23a1ba7a)
 
 ## 4. jwt 기반 로그인
