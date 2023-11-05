@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -27,6 +28,8 @@ public class CommonResponse<T> {
     private T info;
     private String timestamp;
 
+    private Map<String, String> errorMap;
+
     public CommonResponse(T info){
         setCode(ResultCode.SUCCESS.getCode());
         setMsg(ResultCode.SUCCESS.getMessage());
@@ -40,10 +43,10 @@ public class CommonResponse<T> {
     }
 
 
-    public CommonResponse(ResultCode code, Exception e, Map errorMap){
+    public CommonResponse(ResultCode code, Exception e, Map<String, String> errorMap){
         setCode(code.getCode());
-        setMsg(e.getMessage()+" "+errorMap.toString());
-
+        setMsg(e.getMessage());
+        setErrorMap(errorMap);
         setTimestamp(sdf.format(new Timestamp(System.currentTimeMillis())));
     }
 
