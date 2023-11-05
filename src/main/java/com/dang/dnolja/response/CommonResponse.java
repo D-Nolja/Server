@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -39,7 +40,12 @@ public class CommonResponse<T> {
     }
 
 
+    public CommonResponse(ResultCode code, Exception e, Map errorMap){
+        setCode(code.getCode());
+        setMsg(e.getMessage()+" "+errorMap.toString());
 
+        setTimestamp(sdf.format(new Timestamp(System.currentTimeMillis())));
+    }
 
 
 
