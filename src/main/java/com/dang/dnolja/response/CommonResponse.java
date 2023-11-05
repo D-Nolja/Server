@@ -6,35 +6,40 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommonResponse<T> {
 
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-    //성공시
+
     private String code;
     //에러 발생 시 로그
     private String msg;
-
     //Dto
     private T info;
-
-    public CommonResponse(ResultCode code){
-        setCode(code.getCode());
-        setMsg(code.getMessage());
-    }
+    private String timestamp;
 
     public CommonResponse(T info){
         setCode(ResultCode.SUCCESS.getCode());
         setMsg(ResultCode.SUCCESS.getMessage());
         setInfo(info);
     }
-    public CommonResponse(ResultCode code, T info){
+    public CommonResponse(ResultCode code, Exception e){
         setCode(code.getCode());
-        setMsg(code.getMessage());
-        setInfo(info);
+        setMsg(e.getMessage());
+
+        setTimestamp(sdf.format(new Timestamp(System.currentTimeMillis())));
     }
+
+
+
 
 
 

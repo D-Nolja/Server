@@ -23,7 +23,8 @@ public class SpotController {
     public CommonResponse<?> test(){
         List<LocationDto> results = spotService.findAll();
 
-        return new CommonResponse(ResultCode.SUCCESS, results);
+        return new CommonResponse(results);
     }
+
 
 }
