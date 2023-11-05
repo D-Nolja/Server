@@ -7,4 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
 
     void join(UserDto user);
+    UserDto findByEmail(String email);
+
+    void updateVerified(long id);
 }

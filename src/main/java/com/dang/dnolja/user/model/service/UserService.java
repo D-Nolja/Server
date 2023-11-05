@@ -14,4 +14,8 @@ public interface UserService {
 
 
     public UserDto join(JoinReqDto req);
+
+    public UserDto findByEmail(String email);
+
+    public void updateVerified(long userId);
 }

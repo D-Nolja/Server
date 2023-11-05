@@ -4,11 +4,13 @@ package com.dang.dnolja.email.model.service;
 import com.dang.dnolja.email.model.dto.EmailVerification;
 import com.dang.dnolja.email.model.mapper.EmailVerificationMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class EmailVerificationService {
@@ -38,9 +40,10 @@ public class EmailVerificationService {
     }
 
     //식별 id에 해당하는 이메일을 반환한다.
-    public String getUsernameForVerificationId(String verificationId){
+    public String getEmailFromVerificationId(String verificationId){
         EmailVerification verification = emailVerificationMapper.findById(verificationId);
 
+        log.debug("[EmailVerificationService getEmailFromVerificationId] verification :: {}",verification);
         if(verification != null){
             return verification.getEmail();
         }

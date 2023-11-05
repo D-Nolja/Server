@@ -10,5 +10,16 @@
     </insert>
 
 
+    <select id="findByEmail" parameterType="String" resultType="com.dang.dnolja.user.model.dto.UserDto">
+        select user_id, nick_name, email, password, roles, provider_id, provider, profile, status, created_at, modified_at, verified
+        from User
+        where useremail = #{email}
+    </select>
+
+    <update id="updateVerified" parameterType="long">
+        update User
+        set verified = 1
+        where user_id = #{userId}
+    </update>
 
 </mapper>

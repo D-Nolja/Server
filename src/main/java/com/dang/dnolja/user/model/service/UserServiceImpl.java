@@ -29,4 +29,14 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+    @Override
+    public UserDto findByEmail(String email) {
+        return userMapper.findByEmail(email);
+    }
+
+    @Override
+    public void updateVerified(long userId) {
+        userMapper.updateVerified(userId);
+    }
 }
