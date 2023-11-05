@@ -35,6 +35,12 @@
 - 이메일에서는 null 체크 및 정확한 이메일 양식을 지켰는지 정규 표현식을 통해 확인
 - 이후 공통 응답 객체를 통해 어디서 오류가 발생했는지 명확하게 표시함
 
+소스코드 1. aop
+소스코드 2. validation
+![image](https://github.com/D-Nolja/Server/assets/119592507/4617a666-240a-429b-affe-b0466e52c37a)
+![image](https://github.com/D-Nolja/Server/assets/119592507/4522c743-016b-41a7-b8b6-9ae696ec25cb)
+
+
 ### goolge mail api 활용 인증 메일 (유저 조회 및 업데이트 로직이 여기서 사용됩니다.) 
 ![image](https://github.com/D-Nolja/Server/assets/119592507/749702f1-212d-45cd-8670-a14fa2af3081)
 ![image](https://github.com/D-Nolja/Server/assets/119592507/17b3200f-b575-4691-996d-b5bc06859546)
