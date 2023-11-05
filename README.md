@@ -1,5 +1,7 @@
 # DNoljaServer
 
+서버 주소 :
+ D-nolja-prod.eba-pk7qjxkg.ap-northeast-2.elasticbeanstalk.com
 
 ## 1. 엘라스틱 빈스톡 및 Github Action 활용 무중단 ci / cd 구축 
 ![image](https://github.com/D-Nolja/Server/assets/119592507/dcd3ba1b-0751-436b-8483-4100078c30f7)
@@ -59,4 +61,3 @@
 소스코드 3. EmailVerification Listener
 ![image](https://github.com/D-Nolja/Server/assets/119592507/0a183e03-0d43-4224-9cfa-0f8a23a1ba7a)
 
-## 4. jwt 기반 로그인
