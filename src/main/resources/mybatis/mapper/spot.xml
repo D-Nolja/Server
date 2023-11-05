@@ -5,7 +5,9 @@
 
     <select id="findAll" resultType="com.dang.dnolja.location.model.dto.LocationDto">
         SELECT spot_id, name, type, x, y, address, tel, open_time, parking, info
-        FROM SPOT
+        FROM Spot
     </select>
+
+
 
 </mapper>

@@ -131,6 +131,16 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>application.properties</include>
+					<include>application-prod.properties</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
