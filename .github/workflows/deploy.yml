@@ -15,11 +15,6 @@ jobs:
         with:
           java-version: 8
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
       # Maven 빌드를 위한 설정
       - name: Set up Maven
         run: |
