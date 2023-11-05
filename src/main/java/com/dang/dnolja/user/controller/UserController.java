@@ -30,7 +30,6 @@ public class UserController {
     @PostMapping("user")
     public CommonResponse<String> join(@RequestBody @Valid JoinReqDto user, BindingResult bindingResult){
         log.debug("[UserController join] request :: {}", user);
-        userService.join(user);
 
         UserDto joinResult = userService.join(user);
         eventPublisher.publishEvent(new UserRegistrationEvent(joinResult));

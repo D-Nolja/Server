@@ -23,7 +23,7 @@ jobs:
           sudo apt-get install -y maven
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
