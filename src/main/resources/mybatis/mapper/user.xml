@@ -17,7 +17,7 @@
         <result column="verified" property="verified"/>
     </resultMap>
     <insert id="join" parameterType="userDto">
-        insert into users (password, nick_name, email, profile,  verified)
+        insert into Users (password, nick_name, email, profile,  verified)
         values (#{password}, #{username}, #{email}, #{profile}, 0)
     </insert>
 
