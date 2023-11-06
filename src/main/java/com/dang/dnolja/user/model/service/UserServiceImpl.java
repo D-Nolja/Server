@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(req.getUsername());
         user.setEmail(req.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(req.getPassword()));
-        user.setRoles("USER");
+        user.setRole("USER");
         log.debug("[UserServiceImpl UserDto] saveUser :: {}", user);
         userMapper.join(user);
 

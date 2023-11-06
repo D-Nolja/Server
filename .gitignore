@@ -27,3 +27,5 @@ target/classes/
 .idea/
 
 target/test-classes/
+
+target/
