@@ -23,8 +23,8 @@ public class RecommendController {
     @GetMapping("/spot")
     public CommonResponse<RecommendDto> recommendSpot(@ModelAttribute RecommendRequestDto request){
         //todo// 나중에 db 데이터 위도 경도 뒤집어 진거 고쳐야한다!!
-        double y = request.getX();
-        double x = request.getY();
+        double x = request.getX();
+        double y = request.getY();
         double limit = request.getLimit();
         int maxCount = request.getMaxCount();
 
