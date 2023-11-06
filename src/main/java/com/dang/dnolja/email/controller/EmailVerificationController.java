@@ -37,7 +37,7 @@ public class EmailVerificationController {
         if(email!=null){
 
             UserDto user = userService.findByEmail(email);
-
+            log.debug("[EmailVerificationController verifyEmail] user ::{}",user);
             userService.updateVerified(user.getId());
 
             return new CommonResponse<String>(user.getUsername()+"님의 이메일 인증이 완료되었습니다.");

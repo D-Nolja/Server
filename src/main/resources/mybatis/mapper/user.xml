@@ -3,21 +3,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dang.dnolja.user.model.mapper.UserMapper">
 
-
+    <resultMap type="userDto" id="user">
+        <result column="user_id" property="id"/>
+        <result column="nick_name" property="username"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="role" property="role"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="provider" property="provider"/>
+        <result column="profile" property="profile"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="modified_at" property="modifiedAt"/>
+        <result column="verified" property="verified"/>
+    </resultMap>
     <insert id="join" parameterType="userDto">
-        insert into user (password, nick_name, email, profile,  verified)
+        insert into users (password, nick_name, email, profile,  verified)
         values (#{password}, #{username}, #{email}, #{profile}, 0)
     </insert>
 
 
-    <select id="findByEmail" parameterType="String" resultType="com.dang.dnolja.user.model.dto.UserDto">
-        select user_id, nick_name, email, password, roles, provider_id, provider, profile, status, created_at, modified_at, verified
-        from User
-        where useremail = #{email}
+    <select id="findByEmail" parameterType="String" resultMap="user">
+        select user_id, nick_name, email, password, role, provider_id, provider, profile, status, created_at, modified_at, verified
+        from Users
+        where email = #{email}
     </select>
 
     <update id="updateVerified" parameterType="long">
-        update User
+        update Users
         set verified = 1
         where user_id = #{userId}
     </update>

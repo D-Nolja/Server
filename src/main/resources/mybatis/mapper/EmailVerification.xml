@@ -4,7 +4,7 @@
 <mapper namespace="com.dang.dnolja.email.model.mapper.EmailVerificationMapper">
 
     <select id="findById" parameterType="String" resultType="com.dang.dnolja.email.model.dto.EmailVerification">
-        select verification_id, useremail
+        select verification_id, email
         from EMAIL_VERIFICATIONS
         where verification_id = #{verificationId}
     </select>
@@ -12,14 +12,14 @@
 
 
     <select id="findByEmail" parameterType="String" resultType="com.dang.dnolja.email.model.dto.EmailVerification">
-        select verification_id, useremail
+        select verification_id, email
         from EMAIL_VERIFICATIONS
-        where useremail = #{email}
+        where email = #{email}
     </select>
 
 
     <insert id="save" parameterType="emailVerification">
-        insert into EMAIL_VERIFICATIONS (verification_id, useremail)
+        insert into EMAIL_VERIFICATIONS (verification_id, email)
         values (#{verificationId}, #{email})
     </insert>
 
