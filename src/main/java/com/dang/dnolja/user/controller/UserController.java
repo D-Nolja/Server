@@ -24,16 +24,8 @@ import javax.xml.transform.Result;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
-    private final ApplicationEventPublisher eventPublisher;
 
-    @PostMapping("user")
-    public CommonResponse<String> join(@RequestBody @Valid JoinReqDto user, BindingResult bindingResult){
-        log.debug("[UserController join] request :: {}", user);
 
-        UserDto joinResult = userService.join(user);
-        eventPublisher.publishEvent(new UserRegistrationEvent(joinResult));
-        return new CommonResponse(user.getUsername()+"의 회원가입이 완료되었습니다.");
-    }
+
 
 }

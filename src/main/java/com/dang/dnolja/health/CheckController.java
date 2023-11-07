@@ -13,4 +13,11 @@ public class CheckController {
     public String check(){
         return "ok";
     }
+
+
+    @ResponseBody
+    @GetMapping("/authCheck")
+    public String authCheck(){
+        return "권한 체크 완료";
+    }
 }

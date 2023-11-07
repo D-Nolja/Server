@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class CommonResponse<T> {
     public CommonResponse(ResultCode code, Exception e){
         setCode(code.getCode());
         setMsg(e.getMessage());
-
+        //info = (T) Arrays.toString(Arrays.stream(e.getStackTrace()).toArray());
         setTimestamp(sdf.format(new Timestamp(System.currentTimeMillis())));
     }
 
