@@ -1,6 +1,7 @@
 package com.dang.dnolja.common.advice;
 
 import com.dang.dnolja.common.Exception.DtoValidationException;
+import com.dang.dnolja.common.Exception.DuplicatedEmailException;
 import com.dang.dnolja.response.CommonResponse;
 import com.dang.dnolja.response.ResultCode;
 import org.springframework.http.HttpStatus;
@@ -17,14 +18,19 @@ public class ExceptionAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
     public CommonResponse<?> illegalArgumentException(IllegalArgumentException e){
 
-        return new CommonResponse(ResultCode.ERROR, e);
+        return new CommonResponse<>(ResultCode.ERROR, e);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DtoValidationException.class)
     public CommonResponse<?> dtoValidationException(DtoValidationException e){
 
-        return new CommonResponse(ResultCode.ERROR, e, e.getErrorMap());
+        return new CommonResponse<>(ResultCode.ERROR, e, e.getErrorMap());
+    }
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicatedEmailException.class)
+    public CommonResponse<?> duplicatedEmailException(Exception e){
+        return new CommonResponse<>(ResultCode.ERROR, e);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -32,4 +38,9 @@ public class ExceptionAdvice {
     public CommonResponse<?> internalServerException(Exception e){
         return new CommonResponse<>(ResultCode.ERROR, e);
     }
+
+
+
 }
+
+
