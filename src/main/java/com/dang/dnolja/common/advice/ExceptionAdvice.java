@@ -26,4 +26,10 @@ public class ExceptionAdvice {
 
         return new CommonResponse(ResultCode.ERROR, e, e.getErrorMap());
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public CommonResponse<?> internalServerException(Exception e){
+        return new CommonResponse<>(ResultCode.ERROR, e);
+    }
 }
