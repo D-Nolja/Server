@@ -5,7 +5,7 @@
 
     <select id="findById" parameterType="String" resultType="com.dang.dnolja.email.model.dto.EmailVerification">
         select verification_id, email
-        from EMAIL_VERIFICATIONS
+        from Email_Verifications
         where verification_id = #{verificationId}
     </select>
 
@@ -13,13 +13,13 @@
 
     <select id="findByEmail" parameterType="String" resultType="com.dang.dnolja.email.model.dto.EmailVerification">
         select verification_id, email
-        from EMAIL_VERIFICATIONS
+        from Email_Verifications
         where email = #{email}
     </select>
 
 
     <insert id="save" parameterType="emailVerification">
-        insert into EMAIL_VERIFICATIONS (verification_id, email)
+        insert into Email_Verifications (verification_id, email)
         values (#{verificationId}, #{email})
     </insert>
 

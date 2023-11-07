@@ -1,5 +1,6 @@
 package com.dang.dnolja.user.model.service;
 
+import com.dang.dnolja.common.Exception.DuplicatedEmailException;
 import com.dang.dnolja.user.model.dto.JoinReqDto;
 import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.mapper.UserMapper;
@@ -25,6 +26,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(req.getPassword()));
         user.setRole("USER");
         log.debug("[UserServiceImpl UserDto] saveUser :: {}", user);
+
+        if(userMapper.findByEmail(user.getEmail())!=null){
+            throw new DuplicatedEmailException("이미 존재하는 이메일 계정입니다.");
+        }
+
         userMapper.join(user);
 
         return user;
