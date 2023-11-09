@@ -1,7 +1,8 @@
 package com.dang.dnolja.auth.config;
 
-import com.dang.dnolja.auth.config.CorsConfig;
+import com.dang.dnolja.auth.details.CustomUserDetailService;
 import com.dang.dnolja.auth.filter.JwtAuthenticationFilter;
+import com.dang.dnolja.auth.filter.JwtAuthorizationFilter;
 import com.dang.dnolja.auth.jwt.JwtTokenProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,8 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @AllArgsConstructor
@@ -20,9 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CorsConfig corsConfig;
 
-    private final AccessDeniedHandler accessDeniedHandler;
 
     private final JwtTokenProvider jwtTokenProvider;
+
+    private final CustomUserDetailService userDetailService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -39,13 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilter(new JwtAuthenticationFilter(jwtTokenProvider, authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtTokenProvider, userDetailService))
                 .authorizeRequests()
-                .antMatchers("/auth", "/verify/*").permitAll()
-                .antMatchers("/authCheck", "/recommendation/*").authenticated()
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
-                .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);;
+                .antMatchers("/auth/*", "/verify/*").permitAll()
+                .antMatchers("/authCheck", "/recommendation/*").authenticated();
 
     }
 }

@@ -1,4 +1,4 @@
-package com.dang.dnolja.user.model.dto;
+package com.dang.dnolja.auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,4 @@ public class LoginResponseDto {
     private long id;
 
     private String token;
-
-
 }

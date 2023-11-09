@@ -1,8 +1,9 @@
-package com.dang.dnolja.user.model.dto;
+package com.dang.dnolja.auth.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class LoginRequestDto {
 
     @NotEmpty

@@ -1,4 +1,4 @@
-package com.dang.dnolja.user.model.dto;
+package com.dang.dnolja.auth.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

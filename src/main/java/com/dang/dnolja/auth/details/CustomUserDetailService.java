@@ -23,7 +23,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     private final UserMapper userMapper;
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public CustomUserDetail loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDto user = userMapper.findByEmail(email);
         log.error(user.toString());
         List<GrantedAuthority> authorities = new ArrayList<>();
