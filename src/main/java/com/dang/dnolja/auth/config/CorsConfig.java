@@ -1,4 +1,4 @@
-package com.dang.dnolja.auth;
+package com.dang.dnolja.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

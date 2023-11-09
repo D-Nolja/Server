@@ -29,6 +29,6 @@ public class UserDto {
     private String createdAt;
     private String modifiedAt;
 
-    private boolean verified;
+    private int verified;
 
 }

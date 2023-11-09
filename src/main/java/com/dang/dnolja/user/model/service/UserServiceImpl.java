@@ -1,7 +1,7 @@
 package com.dang.dnolja.user.model.service;
 
 import com.dang.dnolja.common.Exception.DuplicatedEmailException;
-import com.dang.dnolja.user.model.dto.JoinReqDto;
+import com.dang.dnolja.auth.dto.request.JoinReqDto;
 import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.mapper.UserMapper;
 import lombok.AllArgsConstructor;

@@ -2,6 +2,8 @@ package com.dang.dnolja.common.advice;
 
 import com.dang.dnolja.common.Exception.DtoValidationException;
 import com.dang.dnolja.common.Exception.DuplicatedEmailException;
+import com.dang.dnolja.common.Exception.LoginFailureException;
+import com.dang.dnolja.common.Exception.UserEmailNotFoundException;
 import com.dang.dnolja.response.CommonResponse;
 import com.dang.dnolja.response.ResultCode;
 import org.springframework.http.HttpStatus;
@@ -29,7 +31,20 @@ public class ExceptionAdvice {
     }
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(DuplicatedEmailException.class)
-    public CommonResponse<?> duplicatedEmailException(Exception e){
+    public CommonResponse<?> duplicatedEmailException(DuplicatedEmailException e){
+        return new CommonResponse<>(ResultCode.ERROR, e);
+    }
+
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(LoginFailureException.class)
+    public CommonResponse<?> loginFailureException(LoginFailureException e){
+        return new CommonResponse<>(ResultCode.ERROR, e);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserEmailNotFoundException.class)
+    public CommonResponse<?> userEmailNotFoundException(UserEmailNotFoundException e) {
         return new CommonResponse<>(ResultCode.ERROR, e);
     }
 
@@ -38,6 +53,8 @@ public class ExceptionAdvice {
     public CommonResponse<?> internalServerException(Exception e){
         return new CommonResponse<>(ResultCode.ERROR, e);
     }
+
+
 
 
 

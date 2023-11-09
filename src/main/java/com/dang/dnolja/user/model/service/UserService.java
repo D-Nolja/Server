@@ -1,12 +1,7 @@
 package com.dang.dnolja.user.model.service;
 
-import com.dang.dnolja.user.model.dto.JoinReqDto;
+import com.dang.dnolja.auth.dto.request.JoinReqDto;
 import com.dang.dnolja.user.model.dto.UserDto;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 
 public interface UserService {
