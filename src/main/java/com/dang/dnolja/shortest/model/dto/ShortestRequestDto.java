@@ -1,4 +1,4 @@
-package com.dang.dnolja.shortestDist.model.dto;
+package com.dang.dnolja.shortest.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -9,13 +9,11 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
-public class RecommendRequestDto {
+public class ShortestRequestDto {
 
     private double x;
     private double y;
     private double limit;
     private int maxCount;
-
-
 
 }

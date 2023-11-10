@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dang.dnolja.location.model.mapper.StayMapper">
+
+    <resultMap type="locationDto" id="stay">
+        <result column="stay_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="x" property="x"/>
+        <result column="y" property="y"/>
+        <result column="address" property="address"/>
+        <result column="tel" property="tel"/>
+        <result column="open_time" property="openTime"/>
+        <result column="info" property="info"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="stay">
+        SELECT stay_id, name, name, x, y, address, tel, open_time, name,info
+        FROM Stay
+    </select>
+
+
+
+</mapper>
