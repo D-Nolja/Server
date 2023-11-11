@@ -1,5 +1,3 @@
-use d_nolja;
-
 
 INSERT INTO Stay (name,x,y,address,tel,open_time,info) VALUES 
 ('369펜션',126.6456514,33.473645,'조천읍 와흘로 369','','16:00~11:00','소형견, 중형견 / 목줄2M이내'),

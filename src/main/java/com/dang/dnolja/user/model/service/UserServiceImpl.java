@@ -6,8 +6,9 @@ import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 @Slf4j
 @Service
@@ -16,15 +17,14 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserMapper userMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private final PasswordEncoder passwordEncoder;
     @Override
     public UserDto join(JoinReqDto req) {
         UserDto user = new UserDto();
         user.setUsername(req.getUsername());
         user.setEmail(req.getEmail());
-        user.setPassword(bCryptPasswordEncoder.encode(req.getPassword()));
-        user.setRole("USER");
+        user.setPassword(passwordEncoder.encode(req.getPassword()));
+        user.setRole("ROLE_USER");
         log.debug("[UserServiceImpl UserDto] saveUser :: {}", user);
 
         if(userMapper.findByEmail(user.getEmail())!=null){

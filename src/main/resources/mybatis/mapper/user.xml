@@ -15,22 +15,35 @@
         <result column="created_at" property="createdAt"/>
         <result column="modified_at" property="modifiedAt"/>
         <result column="verified" property="verified"/>
+        <result column="refresh_token" property="refreshToken"/>
     </resultMap>
     <insert id="join" parameterType="userDto">
-        insert into Users (password, nick_name, email, profile,  verified)
-        values (#{password}, #{username}, #{email}, #{profile}, 0)
+        insert into Users (password, nick_name, email, profile,  verified, role)
+        values (#{password}, #{username}, #{email}, #{profile}, 0, #{role})
     </insert>
 
 
     <select id="findByEmail" parameterType="String" resultMap="user">
-        select user_id, nick_name, email, password, role, provider_id, provider, profile, status, created_at, modified_at, verified
+        select user_id, nick_name, email, password, role, provider_id, provider, profile, status, created_at, modified_at, verified, refresh_token
         from Users
         where email = #{email}
+    </select>
+
+    <select id="findByRefreshToken" parameterType="String" resultMap="user">
+        select user_id, nick_name, email, password, role, provider_id, provider, profile, status, created_at, modified_at, verified, refresh_token
+        from Users
+        where refresh_token = #{refreshToken}
     </select>
 
     <update id="updateVerified" parameterType="long">
         update Users
         set verified = 1
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateRefreshToken" parameterType="map">
+        update Users
+        set refresh_token = #{refreshToken}
         where user_id = #{userId}
     </update>
 
