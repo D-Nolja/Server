@@ -70,8 +70,6 @@ public class ShortestService {
             return topNResult;
         }
 
-
-
     }
 
 

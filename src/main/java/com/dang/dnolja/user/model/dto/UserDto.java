@@ -31,4 +31,6 @@ public class UserDto {
 
     private int verified;
 
+    private String refreshToken;
+
 }
