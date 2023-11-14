@@ -1,4 +1,4 @@
-package com.dang.dnolja.config;
+package com.dang.dnolja.email.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

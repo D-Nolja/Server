@@ -1,4 +1,4 @@
-package com.dang.dnolja.event;
+package com.dang.dnolja.email.event;
 
 import com.dang.dnolja.user.model.dto.UserDto;
 import org.springframework.context.ApplicationEvent;
