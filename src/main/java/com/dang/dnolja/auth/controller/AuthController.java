@@ -25,10 +25,10 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
-    @Value("${jwt.access.header}")
+    @Value("${spring.jwt.access.header}")
     private String accessHeader;
 
-    @Value("${jwt.refresh.header}")
+    @Value("${spring.jwt.refresh.header}")
     private String refreshHeader;
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;

@@ -26,19 +26,19 @@ import java.util.Optional;
 
 public class JwtService {
 
-    @Value("${jwt.secretKey}")
+    @Value("${spring.jwt.secretKey}")
     private String secretKey;
 
-    @Value("${jwt.access.expiration}")
+    @Value("${spring.jwt.access.expiration}")
     private Long accessTokenExpirationPeriod;
 
-    @Value("${jwt.refresh.expiration}")
+    @Value("${spring.jwt.refresh.expiration}")
     private Long refreshTokenExpirationPeriod;
 
-    @Value("${jwt.access.header}")
+    @Value("${spring.jwt.access.header}")
     private String accessHeader;
 
-    @Value("${jwt.refresh.header}")
+    @Value("${spring.jwt.refresh.header}")
     private String refreshHeader;
 
 

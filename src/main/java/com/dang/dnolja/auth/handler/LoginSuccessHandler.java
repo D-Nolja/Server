@@ -31,7 +31,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtService jwtService;
     private final UserMapper userMapper;
 
-    @Value("${jwt.access.expiration}")
+    @Value("${spring.jwt.access.expiration}")
     private String accessTokenExpiration;
 
     @Override
