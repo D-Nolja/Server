@@ -1,16 +1,14 @@
-package com.dang.dnolja.listener;
+package com.dang.dnolja.email.listener;
 
 
 import com.dang.dnolja.email.model.service.EmailVerificationService;
-import com.dang.dnolja.event.UserRegistrationEvent;
+import com.dang.dnolja.email.event.UserRegistrationEvent;
 import com.dang.dnolja.user.model.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import java.util.Base64;
 
 @Service
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package com.dang.dnolja.response;
+package com.dang.dnolja.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
