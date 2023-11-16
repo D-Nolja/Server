@@ -7,6 +7,7 @@ import com.dang.dnolja.common.Exception.UserEmailNotFoundException;
 import com.dang.dnolja.common.response.CommonResponse;
 import com.dang.dnolja.common.response.ResultCode;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -49,6 +50,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public CommonResponse<?> internalServerException(Exception e){
+        return new CommonResponse<>(ResultCode.ERROR, e);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(BadSqlGrammarException.class)
+    public CommonResponse<?> badSqlGrammerException(BadSqlGrammarException e){
         return new CommonResponse<>(ResultCode.ERROR, e);
     }
 
