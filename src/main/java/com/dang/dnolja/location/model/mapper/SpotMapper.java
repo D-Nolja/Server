@@ -14,6 +14,9 @@ public interface SpotMapper {
 
     List<LocationDto> findByName(String name);
 
+
+    List<LocationDto> findByType(String type);
+
     List<LocationDto> findAll();
 
 }

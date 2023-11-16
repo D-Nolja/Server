@@ -8,6 +8,12 @@
         FROM Spot
     </select>
 
+    <select id="findByType" parameterType="String" resultType="com.dang.dnolja.location.model.dto.LocationDto">
+        select spot_id, name, type2, x, y, address, tel, open_time, parking, info
+        from Spot
+        where type1 = #{type}
+    </select>
+
 
 
 </mapper>

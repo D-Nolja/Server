@@ -30,14 +30,7 @@ public class ShortestService {
 
         List<LocationDto> searchLocationResult = new ArrayList<>();
 
-        if(type.equals("fcl")){
-            searchLocationResult = fclMapper.findAll();
-        }else if(type.equals("stay")){
-            searchLocationResult = stayMapper.findAll();
-        }else if(type.equals("spot")){
-            searchLocationResult = spotMapper.findAll();
-        }
-
+        searchLocationResult = spotMapper.findByType(type);
 
         log.debug("[ShortestService recommendLocationFrom] {}",searchLocationResult);
 
@@ -46,6 +39,7 @@ public class ShortestService {
 
         for(LocationDto location : searchLocationResult){
             double dist = calculateDistance(location.getY(), location.getX(), y,x );
+            log.debug("[ShortestService recommendLocationFrom] x: {}, y: {}, limit :{}, dist :{}", x, y, limit, dist);
             if(dist>=limit){
                 continue;
             }
@@ -59,7 +53,7 @@ public class ShortestService {
 
         Collections.sort(recommendList, Comparator.comparing(ShortestItemDto::getDistance));
 
-
+        log.debug("[ShortestService recommendLocationFrom] recommendList ::{}",recommendList);
         if(recommendList.size()<=maxCount){
             return recommendList;
         }else{
