@@ -6,6 +6,7 @@ import com.dang.dnolja.common.Exception.LoginFailureException;
 import com.dang.dnolja.common.Exception.UserEmailNotFoundException;
 import com.dang.dnolja.common.response.CommonResponse;
 import com.dang.dnolja.common.response.ResultCode;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ExceptionAdvice {
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidFormatException.class)
+    public CommonResponse<?> invalidFormatException(){
+        return new CommonResponse<>(ResultCode.ERROR, new IllegalArgumentException("json 양식이 유효하지 않습니다."));
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
@@ -47,11 +54,6 @@ public class ExceptionAdvice {
         return new CommonResponse<>(ResultCode.ERROR, e);
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    public CommonResponse<?> internalServerException(Exception e){
-        return new CommonResponse<>(ResultCode.ERROR, e);
-    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BadSqlGrammarException.class)

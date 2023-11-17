@@ -1,7 +1,7 @@
 package com.dang.dnolja.shortest.model.service;
 
 
-import com.dang.dnolja.location.model.dto.LocationDto;
+import com.dang.dnolja.location.model.dto.response.LocationDto;
 import com.dang.dnolja.location.model.mapper.FclMapper;
 import com.dang.dnolja.location.model.mapper.SpotMapper;
 import com.dang.dnolja.location.model.mapper.StayMapper;

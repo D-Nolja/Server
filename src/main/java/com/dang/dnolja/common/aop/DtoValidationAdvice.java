@@ -25,7 +25,7 @@ public class DtoValidationAdvice {
 
 
     //유효성 검사 aop로 따로 빼놓았음
-    @Around("postMapping() || putMapping()")
+    @Around("postMapping() || putMapping() ")
     public Object validationAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
         Object[] args = proceedingJoinPoint.getArgs(); // jointPoint의 매개변수

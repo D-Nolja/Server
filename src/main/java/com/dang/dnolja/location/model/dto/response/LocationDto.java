@@ -1,4 +1,4 @@
-package com.dang.dnolja.location.model.dto;
+package com.dang.dnolja.location.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
