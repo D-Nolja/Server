@@ -18,6 +18,5 @@ public class LocationDto {
     private String openTime;
     private String parking;
     private String info;
-
-
+    private String img;
 }

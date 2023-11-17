@@ -4,12 +4,12 @@
 <mapper namespace="com.dang.dnolja.location.model.mapper.SpotMapper">
 
     <select id="findAll" resultType="com.dang.dnolja.location.model.dto.LocationDto">
-        SELECT spot_id, name, type, x, y, address, tel, open_time, parking, info
+        SELECT spot_id, name, type2, x, y, address, tel, open_time, parking, info, img
         FROM Spot
     </select>
 
     <select id="findByType" parameterType="String" resultType="com.dang.dnolja.location.model.dto.LocationDto">
-        select spot_id, name, type2, x, y, address, tel, open_time, parking, info
+        select spot_id, name, type2, x, y, address, tel, open_time, parking, info, img
         from Spot
         where type1 = #{type}
     </select>
