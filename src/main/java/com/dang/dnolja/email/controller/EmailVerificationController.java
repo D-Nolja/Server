@@ -1,7 +1,7 @@
 package com.dang.dnolja.email.controller;
 
 import com.dang.dnolja.email.model.service.EmailVerificationService;
-import com.dang.dnolja.common.response.CommonResponse;
+import com.dang.dnolja.global.response.CommonResponse;
 import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.service.UserService;
 import lombok.AllArgsConstructor;

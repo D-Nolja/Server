@@ -2,10 +2,9 @@ package com.dang.dnolja.auth.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.dang.dnolja.common.Exception.UserEmailNotFoundException;
+import com.dang.dnolja.global.Exception.UserEmailNotFoundException;
 import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.mapper.UserMapper;
-import com.dang.dnolja.user.model.service.UserService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

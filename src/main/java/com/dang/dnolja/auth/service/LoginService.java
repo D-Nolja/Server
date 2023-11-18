@@ -1,14 +1,13 @@
 package com.dang.dnolja.auth.service;
 
 import com.dang.dnolja.auth.details.CustomUserDetail;
-import com.dang.dnolja.common.Exception.UserEmailNotFoundException;
+import com.dang.dnolja.global.Exception.UserEmailNotFoundException;
 import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

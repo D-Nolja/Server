@@ -1,10 +1,10 @@
 package com.dang.dnolja.auth.controller;
 
-import com.dang.dnolja.common.Exception.LoginDisabledException;
-import com.dang.dnolja.common.Exception.LoginLockedException;
+import com.dang.dnolja.global.Exception.LoginDisabledException;
+import com.dang.dnolja.global.Exception.LoginLockedException;
 import com.dang.dnolja.email.event.UserRegistrationEvent;
-import com.dang.dnolja.common.response.CommonResponse;
-import com.dang.dnolja.common.response.ResultCode;
+import com.dang.dnolja.global.response.CommonResponse;
+import com.dang.dnolja.global.response.ResultCode;
 import com.dang.dnolja.auth.dto.request.JoinReqDto;
 import com.dang.dnolja.auth.dto.response.LoginResponseDto;
 import com.dang.dnolja.user.model.dto.UserDto;

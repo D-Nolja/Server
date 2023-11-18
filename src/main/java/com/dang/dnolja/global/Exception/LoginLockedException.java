@@ -1,4 +1,4 @@
-package com.dang.dnolja.common.Exception;
+package com.dang.dnolja.global.Exception;
 
 public class LoginLockedException extends RuntimeException{
 

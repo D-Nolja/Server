@@ -1,6 +1,6 @@
 package com.dang.dnolja.image.controller;
 
-import com.dang.dnolja.common.response.CommonResponse;
+import com.dang.dnolja.global.response.CommonResponse;
 import com.dang.dnolja.image.controller.dto.response.UploadResultResponse;
 import com.dang.dnolja.image.service.ImageService;
 import lombok.RequiredArgsConstructor;

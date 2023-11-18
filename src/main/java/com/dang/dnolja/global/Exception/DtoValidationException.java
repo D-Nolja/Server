@@ -1,4 +1,4 @@
-package com.dang.dnolja.common.Exception;
+package com.dang.dnolja.global.Exception;
 
 import lombok.Getter;
 

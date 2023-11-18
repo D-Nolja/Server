@@ -1,8 +1,7 @@
 package com.dang.dnolja.location.model.mapper;
 
 
-import com.dang.dnolja.location.model.dto.request.LocationListRequest;
-import com.dang.dnolja.location.model.dto.response.LocationDto;
+import com.dang.dnolja.location.model.dto.LocationDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public interface SpotMapper {
 
     List<LocationDto> findByType(String type);
 
-    List<LocationDto> findAll(Map<String, Object> req);
+    List<LocationDto> findLocationList(Map<String, Object> req);
 
 
     int getTotalLocationCount(Map<String, Object> req);

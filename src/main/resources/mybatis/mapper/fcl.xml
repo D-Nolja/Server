@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dang.dnolja.location.model.mapper.FclMapper">
 
-    <select id="findAll" resultType="com.dang.dnolja.location.model.dto.response.LocationDto">
+    <select id="findAll" resultType="com.dang.dnolja.location.model.dto.LocationDto">
         SELECT fcl_id, name, type, x, y, address, tel, open_time, parking, info
         FROM FCL
     </select>

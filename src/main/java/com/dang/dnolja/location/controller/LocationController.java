@@ -1,11 +1,9 @@
 package com.dang.dnolja.location.controller;
 
-import com.dang.dnolja.common.response.ResultCode;
-import com.dang.dnolja.location.model.dto.request.LocationListRequest;
-import com.dang.dnolja.location.model.dto.response.LocationDto;
+import com.dang.dnolja.location.model.dto.LocationDto;
 import com.dang.dnolja.location.model.dto.response.LocationListDto;
 import com.dang.dnolja.location.model.service.LocationService;
-import com.dang.dnolja.common.response.CommonResponse;
+import com.dang.dnolja.global.response.CommonResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +27,7 @@ public class LocationController {
 
     @GetMapping()
     public CommonResponse<LocationListDto> findLocations(
-            @RequestParam("keyWord") Map<String, String> params
+            @RequestParam() Map<String, String> params
             ) throws IllegalArgumentException {
 
 
