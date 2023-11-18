@@ -39,7 +39,7 @@
 
     <sql id="search">
         <if test="keyWord != null and keyWord != ''">
-            where name like concat('%', #{keyWord}, '%')
+            `name` like concat('%', #{keyWord}, '%')
         </if>
     </sql>
 
@@ -47,7 +47,9 @@
     <select id="findLocationList" parameterType="map" resultMap="location">
         SELECT spot_id, name, type1,type2, x, y, address, tel, open_time,parking, info, img
         from Spot
-        <include refid="search"></include>
+        <where>
+            <include refid="search"></include>
+        </where>
         order by spot_id desc
         limit #{start}, #{sizePerPage}
     </select>
