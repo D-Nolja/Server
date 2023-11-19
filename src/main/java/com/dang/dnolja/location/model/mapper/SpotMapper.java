@@ -19,6 +19,8 @@ public interface SpotMapper {
 
     List<LocationDto> findLocationList(Map<String, Object> req);
 
+    List<LocationDto> findAll();
+
 
     int getTotalLocationCount(Map<String, Object> req);
 }
