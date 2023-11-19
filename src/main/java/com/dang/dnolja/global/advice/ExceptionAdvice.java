@@ -1,9 +1,6 @@
 package com.dang.dnolja.global.advice;
 
-import com.dang.dnolja.global.Exception.DtoValidationException;
-import com.dang.dnolja.global.Exception.DuplicatedEmailException;
-import com.dang.dnolja.global.Exception.LoginFailureException;
-import com.dang.dnolja.global.Exception.UserEmailNotFoundException;
+import com.dang.dnolja.global.Exception.*;
 import com.dang.dnolja.global.response.CommonResponse;
 import com.dang.dnolja.global.response.ResultCode;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -13,6 +10,9 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class ExceptionAdvice {
@@ -60,6 +60,14 @@ public class ExceptionAdvice {
     @ExceptionHandler(BadSqlGrammarException.class)
     public CommonResponse<?> badSqlGrammerException(BadSqlGrammarException e){
         return new CommonResponse<>(ResultCode.ERROR, e);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CrawlingException.class)
+    public CommonResponse<?> crawlingException(CrawlingException e){
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "크롤링이 실패했습니다");
+        return new CommonResponse<>(ResultCode.ERROR, e, error);
     }
 
 }

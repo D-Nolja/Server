@@ -62,15 +62,16 @@ public class SecurityConfig  {
                 .csrf().disable() // csrf 보안 사용 X
                 .headers().frameOptions().disable()
                 .and()
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
                 .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-                .antMatchers("/join", "/verify/email", "/auth/**", "/check").permitAll() // 회원가입 접근 가능
-                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
-                .and()
-                .cors().configurationSource(corsConfigurationSource());
+                .antMatchers("/join", "/verify/email", "/auth/**", "/check", "/news").permitAll() // 회원가입 접근 가능
+                .anyRequest().authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+
 
         // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
