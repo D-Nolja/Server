@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Slf4j
 @Service
@@ -44,5 +47,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateVerified(long userId) {
         userMapper.updateVerified(userId);
+    }
+
+    @Override
+    public void modify(Long id, String username, String img){
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("userId", id);
+        params.put("username", username);
+        params.put("img", img);
+        userMapper.modify(params);
+
     }
 }

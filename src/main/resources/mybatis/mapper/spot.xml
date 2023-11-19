@@ -21,6 +21,9 @@
     <select id="findAll" resultMap="location">
         SELECT spot_id, name, type1 ,type2, x, y, address, tel, open_time, parking, info, img
         FROM Spot
+        <where>
+            <include refid="search"></include>
+        </where>
     </select>
 
     <select id="findByType" parameterType="String" resultMap="location">
@@ -39,7 +42,13 @@
 
     <sql id="search">
         <if test="keyWord != null and keyWord != ''">
-            `name` like concat('%', #{keyWord}, '%')
+            and `name` like concat('%', #{keyWord}, '%')
+        </if>
+        <if test="type != null and type!=''">
+            and type1 like concat('%', #{type}, '%')
+        </if>
+        <if test="category !=null and category !=''">
+            and `type2` like concat('%', #{category}, '%')
         </if>
     </sql>
 
@@ -50,7 +59,7 @@
         <where>
             <include refid="search"></include>
         </where>
-        order by spot_id desc
+        order by spot_id
         limit #{start}, #{sizePerPage}
     </select>
 

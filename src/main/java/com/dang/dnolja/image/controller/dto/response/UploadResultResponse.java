@@ -9,6 +9,5 @@ import lombok.Data;
 @Builder
 public class UploadResultResponse
 {
-
     private String url;
 }
