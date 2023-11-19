@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/image")
+@RequestMapping("/image")
 @RequiredArgsConstructor
 @Slf4j
 public class ImageController {
