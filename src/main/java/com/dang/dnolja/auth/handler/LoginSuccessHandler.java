@@ -2,17 +2,15 @@ package com.dang.dnolja.auth.handler;
 
 
 import com.dang.dnolja.auth.service.JwtService;
-import com.dang.dnolja.common.Exception.UserEmailNotFoundException;
+import com.dang.dnolja.global.Exception.UserEmailNotFoundException;
 import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.mapper.UserMapper;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import javax.servlet.RequestDispatcher;

@@ -10,6 +10,7 @@ import lombok.Data;
 public class LocationDto {
     private long id;
     private String name;
+    private String category;
     private String type;
     private double x;
     private double y;

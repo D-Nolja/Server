@@ -1,6 +1,6 @@
-package com.dang.dnolja.common.aop;
+package com.dang.dnolja.global.aop;
 
-import com.dang.dnolja.common.Exception.DtoValidationException;
+import com.dang.dnolja.global.Exception.DtoValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -25,7 +25,7 @@ public class DtoValidationAdvice {
 
 
     //유효성 검사 aop로 따로 빼놓았음
-    @Around("postMapping() || putMapping()")
+    @Around("postMapping() || putMapping() ")
     public Object validationAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
         Object[] args = proceedingJoinPoint.getArgs(); // jointPoint의 매개변수

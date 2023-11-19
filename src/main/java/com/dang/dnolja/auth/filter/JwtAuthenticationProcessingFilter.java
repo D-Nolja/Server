@@ -3,7 +3,7 @@ package com.dang.dnolja.auth.filter;
 import com.dang.dnolja.auth.details.CustomUserDetail;
 import com.dang.dnolja.auth.service.JwtService;
 import com.dang.dnolja.auth.util.PasswordUtil;
-import com.dang.dnolja.common.Exception.UserEmailNotFoundException;
+import com.dang.dnolja.global.Exception.UserEmailNotFoundException;
 import com.dang.dnolja.user.model.dto.UserDto;
 import com.dang.dnolja.user.model.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;

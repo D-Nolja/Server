@@ -3,17 +3,55 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dang.dnolja.location.model.mapper.SpotMapper">
 
-    <select id="findAll" resultType="com.dang.dnolja.location.model.dto.LocationDto">
-        SELECT spot_id, name, type2, x, y, address, tel, open_time, parking, info, img
+    <resultMap type="locationDto" id="location">
+        <result column="spot_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type1" property="category"/>
+        <result column="type2" property="type"/>
+        <result column="x" property="x"/>
+        <result column="y" property="y"/>
+        <result column="address" property="address"/>
+        <result column="tel" property="tel"/>
+        <result column="open_time" property="openTime"/>
+        <result column="parking" property="parking"/>
+        <result column="info" property="info"/>
+        <result column="img" property="img"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="location">
+        SELECT spot_id, name, type1 ,type2, x, y, address, tel, open_time, parking, info, img
         FROM Spot
     </select>
 
-    <select id="findByType" parameterType="String" resultType="com.dang.dnolja.location.model.dto.LocationDto">
-        select spot_id, name, type2, x, y, address, tel, open_time, parking, info, img
+    <select id="findByType" parameterType="String" resultMap="location">
+        select spot_id, name, type1,type2, x, y, address, tel, open_time, parking, info, img
         from Spot
         where type1 = #{type}
     </select>
 
+    <select id="getTotalLocationCount" parameterType="map" resultType="int">
+        select count(spot_id)
+        from Spot
+        <where>
+            <include refid="search"></include>
+        </where>
+    </select>
 
+    <sql id="search">
+        <if test="keyWord != null and keyWord != ''">
+            `name` like concat('%', #{keyWord}, '%')
+        </if>
+    </sql>
+
+
+    <select id="findLocationList" parameterType="map" resultMap="location">
+        SELECT spot_id, name, type1,type2, x, y, address, tel, open_time,parking, info, img
+        from Spot
+        <where>
+            <include refid="search"></include>
+        </where>
+        order by spot_id desc
+        limit #{start}, #{sizePerPage}
+    </select>
 
 </mapper>
