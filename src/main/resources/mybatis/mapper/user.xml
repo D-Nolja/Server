@@ -41,6 +41,15 @@
         where user_id = #{userId}
     </update>
 
+
+    <update id="modify" parameterType="map">
+        update Users
+        set nick_name = #{username},
+            profile = #{img}
+        where user_id = #{userId}
+
+    </update>
+
     <update id="updateRefreshToken" parameterType="map">
         update Users
         set refresh_token = #{refreshToken}

@@ -13,6 +13,4 @@ public interface LocationService {
 
     LocationListDto  findLocation(Map<String, String> params);
 
-
-
 }

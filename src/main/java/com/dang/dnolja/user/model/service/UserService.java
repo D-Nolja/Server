@@ -6,7 +6,7 @@ import com.dang.dnolja.user.model.dto.UserDto;
 
 public interface UserService {
 
-
+    public void modify(Long id, String username, String profile);
 
     public UserDto join(JoinReqDto req);
 

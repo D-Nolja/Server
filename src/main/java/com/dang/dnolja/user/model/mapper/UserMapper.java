@@ -13,6 +13,8 @@ public interface UserMapper {
 
     UserDto findByRefreshToken(String refreshToken);
 
+    void modify(Map<String, Object> map);
+
     void updateVerified(long id);
 
     void updateRefreshToken(Map<String, Object> param);
