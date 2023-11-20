@@ -28,9 +28,9 @@ public class NewsServiceImpl  implements NewsService {
         String url = "https://knto.or.kr/";
         String uri = "/index";
 
-        Document doc = crawlingUtil.getDoc(url + uri);
 
-        Elements divs = doc.select("div.swiper-slide");
+
+        Elements divs =  crawlingUtil.getDoc(url + uri).select("div.swiper-slide");
         List<BannerItemDto> banners = new ArrayList<>();
 
         for (Element div : divs) {
@@ -63,8 +63,8 @@ public class NewsServiceImpl  implements NewsService {
         String url = "https://www.newsjeju.net/news/";
         String uri = "articleList.html?sc_section_code=S1N18&view_type=sm";
 
-        Document doc = crawlingUtil.getDoc(url + uri);
-        Elements divs = doc.select("div.list-block");
+
+        Elements divs = crawlingUtil.getDoc(url + uri).select("div.list-block");
 
         List<NewsItemDto> items = new ArrayList<>();
         int itemsToRetrieve = 3;

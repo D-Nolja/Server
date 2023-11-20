@@ -31,6 +31,8 @@ public class LocationServiceImpl implements LocationService {
 
         Map<String, Object> params = new HashMap<>();
         log.debug("[LocationServiceImpl findLocation] inputMap :: {}", map);
+        params.put("type", map.get("type") == null ? "" : map.get("type"));
+        params.put("category", map.get("category") == null ? "" : map.get("category"));
         params.put("keyWord", map.get("keyWord") == null ? "" : map.get("keyWord"));
         int pageNo = Integer.valueOf(map.get("pageNo") == null ? "1" : map.get("pageNo"));
         int sizePerPage = Integer.valueOf(map.get("sizePerPage")== null ? "5" : map.get("sizePerPage"));

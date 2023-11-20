@@ -21,16 +21,14 @@ public class ShortestService {
 
     private final SpotMapper spotMapper;
 
-    private final StayMapper stayMapper;
-    private final FclMapper fclMapper;
 
-    public List<ShortestItemDto> recommendLocationFrom(double x, double y, double limit, int maxCount, String type){
+    public List<ShortestItemDto> recommendLocationFrom(double x, double y, double limit, int maxCount){
 
-        if(type==null && !(type.equals("fcl")||type.equals("stay")||type.equals("spot"))) throw new IllegalArgumentException(String.format("%s는 지원하지 않습니다. (fcl, stay, spot 중에서만 지원합니다.", type));
+//        if(type==null && !(type.equals("fcl")||type.equals("stay")||type.equals("spot"))) throw new IllegalArgumentException(String.format("%s는 지원하지 않습니다. (fcl, stay, spot 중에서만 지원합니다.", type));
 
         List<LocationDto> searchLocationResult = new ArrayList<>();
 
-        searchLocationResult = spotMapper.findByType(type);
+        searchLocationResult = spotMapper.findAll();
 
         log.debug("[ShortestService recommendLocationFrom] {}",searchLocationResult);
 
