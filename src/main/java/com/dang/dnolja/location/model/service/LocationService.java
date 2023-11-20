@@ -1,6 +1,7 @@
 package com.dang.dnolja.location.model.service;
 
 import com.dang.dnolja.location.model.dto.LocationDto;
+import com.dang.dnolja.location.model.dto.request.LocationListRequest;
 import com.dang.dnolja.location.model.dto.response.LocationListDto;
 
 import java.util.List;
@@ -11,6 +12,6 @@ public interface LocationService {
     List<LocationDto> findAll();
 
 
-    LocationListDto  findLocation(Map<String, String> params);
+    LocationListDto  findLocation(LocationListRequest request);
 
 }

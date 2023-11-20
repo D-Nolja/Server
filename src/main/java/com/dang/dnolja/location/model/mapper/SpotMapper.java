@@ -17,9 +17,9 @@ public interface SpotMapper {
 
     List<LocationDto> findByType(String type);
 
-    List<LocationDto> findLocationList(Map<String, Object> req);
+    List<LocationDto> findAllwithPagenation(Map<String, Object> req);
 
-    List<LocationDto> findAll();
+    List<LocationDto> findAllwithoutPagenation(Map<String, Object> req);
 
 
     int getTotalLocationCount(Map<String, Object> req);

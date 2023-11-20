@@ -20,12 +20,15 @@ public class DtoValidationAdvice {
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
     public void postMapping(){}
 
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
+    public void getMapping(){}
+
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PutMapping)")
     public void putMapping(){}
 
 
     //유효성 검사 aop로 따로 빼놓았음
-    @Around("postMapping() || putMapping() ")
+    @Around("postMapping() || putMapping() || getMapping()")
     public Object validationAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
         Object[] args = proceedingJoinPoint.getArgs(); // jointPoint의 매개변수
