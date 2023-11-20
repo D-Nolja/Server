@@ -1,11 +1,11 @@
 package com.dang.dnolja.user.model.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-
 @Data
+@AllArgsConstructor
 public class UserModifyRequest {
 
     @NotEmpty
