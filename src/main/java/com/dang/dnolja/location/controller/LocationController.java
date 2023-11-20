@@ -1,13 +1,16 @@
 package com.dang.dnolja.location.controller;
 
 import com.dang.dnolja.location.model.dto.LocationDto;
+import com.dang.dnolja.location.model.dto.request.LocationListRequest;
 import com.dang.dnolja.location.model.dto.response.LocationListDto;
 import com.dang.dnolja.location.model.service.LocationService;
 import com.dang.dnolja.global.response.CommonResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 @Slf4j
 @RestController
@@ -27,12 +30,13 @@ public class LocationController {
 
     @GetMapping()
     public CommonResponse<LocationListDto> findLocations(
-            @RequestParam() Map<String, String> params
+            @ModelAttribute @Valid LocationListRequest request,
+            BindingResult bindingResult
             ) throws IllegalArgumentException {
 
 
-        log.debug("[LocationController findLocations] params :: {}", params);
-        LocationListDto result=  locationService.findLocation(params);
+        log.debug("[LocationController findLocations] params :: {}", request);
+        LocationListDto result=  locationService.findLocation(request);
 
         return new CommonResponse<>(result);
     }

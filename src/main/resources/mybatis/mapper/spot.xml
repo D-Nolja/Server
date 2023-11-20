@@ -18,7 +18,7 @@
         <result column="img" property="img"/>
     </resultMap>
 
-    <select id="findAll" resultMap="location">
+    <select id="findAllwithoutPagenation" resultMap="location">
         SELECT spot_id, name, type1 ,type2, x, y, address, tel, open_time, parking, info, img
         FROM Spot
         <where>
@@ -53,7 +53,7 @@
     </sql>
 
 
-    <select id="findLocationList" parameterType="map" resultMap="location">
+    <select id="findAllwithPagenation" parameterType="map" resultMap="location">
         SELECT spot_id, name, type1,type2, x, y, address, tel, open_time,parking, info, img
         from Spot
         <where>
