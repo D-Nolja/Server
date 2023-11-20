@@ -9,7 +9,11 @@ import com.dang.dnolja.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 
 @Slf4j
 @RestController
@@ -19,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @PutMapping
-    public CommonResponse<String> modifyUser(Authentication auth, @RequestBody UserModifyRequest request){
+    public CommonResponse<String> modifyUser(Authentication auth, @RequestBody @Valid UserModifyRequest request, BindingResult bindingResult){
         log.debug("[] details::{}, principals :{}", auth.getDetails(), auth.getPrincipal());
         CustomUserDetail detail = (CustomUserDetail) auth.getPrincipal();
         UserDto user = detail.getUser();
