@@ -1,8 +1,11 @@
 package com.dang.dnolja.plan.model.service.impl;
 
-import com.dang.dnolja.daily.model.mapper.DailyMapper;
+import com.dang.dnolja.daily.controller.dto.response.DailyListResponse;
+import com.dang.dnolja.daily.model.dto.DailyDetailDto;
+import  com.dang.dnolja.daily.model.mapper.DailyMapper;
 import com.dang.dnolja.plan.controller.dto.request.PlanListRequest;
 import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
+import com.dang.dnolja.plan.controller.dto.response.PlanDetailDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanItemDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanListDto;
 import com.dang.dnolja.plan.model.mapper.PlanMapper;
@@ -11,8 +14,8 @@ import com.dang.dnolja.review.model.mapper.ReviewMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,23 +56,36 @@ public class PlanServiceImpl implements PlanService {
     }
 
 
-    private Map<String, Object> getSearchParams(PlanListRequest request) {
+    @Override
+    public PlanDetailDto getDetail(Long planId){
+        int maxDayNum = dailyMapper.getMaxDayNum(planId);
         Map<String, Object> params = new HashMap<>();
-        log.debug("[LocationServiceImpl findLocation] request :: {}", request);
+        params.put("planId", planId);
 
-        params.put("keyWord", request.getKeyword() == null ? "" : request.getKeyword());
-        int pageNo = request.getCurrentPage() == null ? 1: request.getCurrentPage();
-        int sizePerPage = request.getSizePerPage()== null ? 5 : request.getSizePerPage();
-        int start = pageNo * sizePerPage - sizePerPage;
-        params.put("start", start);
-        params.put("sizePerPage", sizePerPage);
-        params.put("currentPage", pageNo);
+        ArrayList<DailyListResponse> dailyList = new ArrayList<>();
 
-        return params;
+        for(int day=1; day<=maxDayNum; day++){
+            params.put("day", day);
+
+            List<DailyDetailDto>result= dailyMapper.getDailyDetailList(params);
+
+
+
+            dailyList.add(
+                    DailyListResponse.builder()
+                    .dailyPlan(result)
+                    .day(day)
+                    .build());
+
+        }
+        log.debug("dailyList :: {}",  dailyList);
+
+        return PlanDetailDto.builder()
+                .planId(planId)
+                .planDetails(dailyList).build();
     }
 
     @Override
-
     public void create(Long userId, PlanPostRequest request) {
 
         Map<String, Object> planParams = getPlanParams(userId, request);
@@ -97,7 +113,6 @@ public class PlanServiceImpl implements PlanService {
            }
 
            dayNum ++;
-
         }
             //daily를 생성한다. + plan ID 같이 넣어준다.
     }
@@ -130,5 +145,20 @@ public class PlanServiceImpl implements PlanService {
         planParams.put("end", request.getEnd());
 
         return planParams;
+    }
+
+    private Map<String, Object> getSearchParams(PlanListRequest request) {
+        Map<String, Object> params = new HashMap<>();
+        log.debug("[LocationServiceImpl findLocation] request :: {}", request);
+
+        params.put("keyWord", request.getKeyword() == null ? "" : request.getKeyword());
+        int pageNo = request.getCurrentPage() == null ? 1: request.getCurrentPage();
+        int sizePerPage = request.getSizePerPage()== null ? 5 : request.getSizePerPage();
+        int start = pageNo * sizePerPage - sizePerPage;
+        params.put("start", start);
+        params.put("sizePerPage", sizePerPage);
+        params.put("currentPage", pageNo);
+
+        return params;
     }
 }

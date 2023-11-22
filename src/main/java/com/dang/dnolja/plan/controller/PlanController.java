@@ -10,11 +10,11 @@ import com.dang.dnolja.plan.model.service.PlanService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @Slf4j
 @RestController
@@ -47,6 +47,14 @@ public class PlanController {
     public CommonResponse<PlanListDto> getList(@ModelAttribute @Valid PlanListRequest request ,  BindingResult bindingResult){
         PlanListDto result = planService.getList(request);
         log.debug("[PlanController getList] request :: {}",request);
+        return new CommonResponse<>(result);
+    }
+
+    @GetMapping("/{id}")
+    public CommonResponse<PlanDetailDto> getDetail(@PathVariable("id") Long planId){
+        log.debug("planId {}", planId);
+        PlanDetailDto result = planService.getDetail(planId);
+        
         return new CommonResponse<>(result);
     }
 

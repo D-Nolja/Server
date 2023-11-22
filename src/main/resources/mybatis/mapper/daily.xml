@@ -11,5 +11,20 @@
     <select id="getLastPk" resultType="long">
         SELECT MAX(daily_id) FROM Daily;
     </select>
+    
+    <select id="getDailyDetailList" parameterType="map" resultType="com.dang.dnolja.daily.model.dto.DailyDetailDto">
+        SELECT r.order, s.spot_id as spotId, s.name, s.type1 as category, s.type2 as type, s.x, s.y, s.open_time, s.img
+        FROM Daily d
+             JOIN Review r ON d.daily_id = r.daily_id
+             JOIN Spot s ON r.spot_id = s.spot_id
+        WHERE d.plan_id = #{planId} and d.day_num = #{day};
+    </select>
+
+    <select id="getMaxDayNum" parameterType="long" resultType="int">
+        select Max(day_num)
+        From Daily d
+                 JOIN Review r ON d.daily_id = r.daily_id
+        WHERE d.plan_id = #{planId};
+    </select>
 
 </mapper>
