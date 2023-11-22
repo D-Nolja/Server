@@ -9,6 +9,7 @@ import com.dang.dnolja.plan.controller.dto.response.PlanListDto;
 import com.dang.dnolja.plan.model.service.PlanService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class PlanController {
     }
 
     @GetMapping("/{id}")
-    public CommonResponse<PlanDetailDto> getDetail(@PathVariable("id") Long planId){
+    public CommonResponse<PlanDetailDto> getDetail(@PathVariable("id") Long planId) throws NotFoundException {
         log.debug("planId {}", planId);
         PlanDetailDto result = planService.getDetail(planId);
         

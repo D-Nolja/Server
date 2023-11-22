@@ -12,8 +12,11 @@ import java.util.List;
 public class PlanDetailDto {
 
     private long planId;
+    private long userId;
     private String title;
     private String start;
     private String end;
+    private String createdAt;
+    private String modifiedAt;
     private List<DailyListResponse> planDetails;
 }

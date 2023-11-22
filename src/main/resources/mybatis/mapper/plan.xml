@@ -12,27 +12,35 @@
         SELECT MAX(plan_id) FROM Plan;
     </select>
 
+    <select id="findById" parameterType="long" resultType="com.dang.dnolja.plan.model.dto.Plan">
+        select plan_id as planId, user_id as userId, title, `start` , `end`, created_at as createdAt, modified_at as modifiedAt
+        from Plan
+        where plan_id = #{planId}
+    </select>
+
     <sql id="search">
         <if test="keyWord != null and keyWord != ''">
-            and `name` like concat('%', #{keyWord}, '%')
+            and title like concat('%', #{keyWord}, '%')
         </if>
         <if test="userId != null and userId!=''">
-            and user_id = #{userId}
+            and p.user_id = #{userId}
         </if>
     </sql>
 
     <select id="getList" parameterType="map" resultType="com.dang.dnolja.plan.controller.dto.response.PlanItemDto">
-        select plan_id, title, start, `end` from Plan
+        select u.nick_name as userName, p.plan_id as planId, title, start, `end`
+        from Plan p
+            JOIN Users u on u.user_id = p.user_id
         <where>
             <include refid="search"></include>
         </where>
-        order by plan_id
+        order by p.plan_id
         limit #{start}, #{sizePerPage}
     </select>
 
     <select id="getTotalPlanCount" parameterType="map" resultType="int">
         select count(plan_id)
-        from Plan
+        from Plan p
         <where>
             <include refid="search"></include>
         </where>

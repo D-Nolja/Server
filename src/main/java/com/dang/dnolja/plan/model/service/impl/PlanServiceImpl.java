@@ -8,11 +8,13 @@ import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
 import com.dang.dnolja.plan.controller.dto.response.PlanDetailDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanItemDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanListDto;
+import com.dang.dnolja.plan.model.dto.Plan;
 import com.dang.dnolja.plan.model.mapper.PlanMapper;
 import com.dang.dnolja.plan.model.service.PlanService;
 import com.dang.dnolja.review.model.mapper.ReviewMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,7 +59,10 @@ public class PlanServiceImpl implements PlanService {
 
 
     @Override
-    public PlanDetailDto getDetail(Long planId){
+    public PlanDetailDto getDetail(Long planId) throws NotFoundException {
+        Plan planResult = planMapper.findById(planId);
+        if(planResult == null) throw new NotFoundException(String.format("%s인 plan이 존재하지 않습니다.", planId));
+
         int maxDayNum = dailyMapper.getMaxDayNum(planId);
         Map<String, Object> params = new HashMap<>();
         params.put("planId", planId);
@@ -82,6 +87,13 @@ public class PlanServiceImpl implements PlanService {
 
         return PlanDetailDto.builder()
                 .planId(planId)
+                .userId(planResult.getUserId())
+                .title(planResult.getTitle())
+                .start(planResult.getStart())
+                .end(planResult.getEnd())
+                .createdAt(planResult.getCreatedAt())
+                .modifiedAt(planResult.getModifiedAt())
+
                 .planDetails(dailyList).build();
     }
 

@@ -8,7 +8,9 @@ import lombok.Data;
 
 public class PlanItemDto {
 
-    private long id;
+
+    private String userName;
+    private long planId;
     private String title;
     private String start;
     private String end;

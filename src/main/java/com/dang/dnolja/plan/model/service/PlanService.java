@@ -5,6 +5,7 @@ import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
 import com.dang.dnolja.plan.controller.dto.response.PlanDetailDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanItemDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanListDto;
+import org.apache.ibatis.javassist.NotFoundException;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface PlanService {
 
     PlanListDto getList(PlanListRequest request);
 
-    PlanDetailDto getDetail(Long planId);
+    PlanDetailDto getDetail(Long planId) throws NotFoundException;
 
     void create(Long userId, PlanPostRequest planPostRequest);
 
