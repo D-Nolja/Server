@@ -60,8 +60,8 @@ public class NewsServiceImpl  implements NewsService {
 
     @Override
     public List<NewsItemDto> getNewsItems() throws CrawlingException {
-        String url = "https://www.newsjeju.net/news/";
-        String uri = "articleList.html?sc_section_code=S1N18&view_type=sm";
+        String url = "https://www.newsjeju.net";
+        String uri = "/news/articleList.html?sc_section_code=S1N18&view_type=sm";
 
 
         Elements divs = crawlingUtil.getDoc(url + uri).select("div.list-block");
