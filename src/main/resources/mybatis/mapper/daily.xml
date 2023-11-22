@@ -13,7 +13,7 @@
     </select>
     
     <select id="getDailyDetailList" parameterType="map" resultType="com.dang.dnolja.daily.model.dto.DailyDetailDto">
-        SELECT r.order, s.spot_id as spotId, s.name, s.type1 as category, s.type2 as type, s.x, s.y, s.open_time as openTime, s.img
+        SELECT r.review_id as reviewId, r.order, s.spot_id as spotId, s.name, s.type1 as category, s.type2 as type, s.x, s.y, s.open_time as openTime, s.img
         FROM Daily d
              JOIN Review r ON d.daily_id = r.daily_id
              JOIN Spot s ON r.spot_id = s.spot_id

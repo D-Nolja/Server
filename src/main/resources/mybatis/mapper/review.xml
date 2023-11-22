@@ -8,6 +8,20 @@
     </insert>
 
 
+    <update id="updateReviewItem" parameterType="com.dang.dnolja.review.controller.dto.request.ReviewItemRequest">
+        update Review
+        set img = #{img}, contents=#{contents}
+        where review_id = #{reviewId}
+    </update>
+
+    <select id="getUserId" parameterType="long" resultType="long">
+        select P.user_id
+        From Plan P
+                 JOIN Daily D ON P.plan_id = D.plan_id
+                 JOIN Review R ON R.daily_id = D.daily_id
+        where R.review_id = #{reviewId};
+    </select>
+
 
 
 </mapper>

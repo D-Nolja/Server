@@ -12,7 +12,6 @@ public interface PlanMapper {
 
     public long createPlan(Map<String, Object> params);
 
-
     public Plan findById(long planId);
 
     public List<PlanItemDto> getList(Map<String, Object> params);

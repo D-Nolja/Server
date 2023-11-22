@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class DailyDetailDto {
+    private long reviewId;
 
     private int order;
     private int spotId;
