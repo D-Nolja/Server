@@ -4,6 +4,7 @@ import com.dang.dnolja.auth.details.CustomUserDetail;
 import com.dang.dnolja.global.response.CommonResponse;
 import com.dang.dnolja.plan.model.service.PlanService;
 import com.dang.dnolja.review.controller.dto.request.ReviewItemRequest;
+import com.dang.dnolja.review.controller.dto.request.ReviewPostRequest;
 import com.dang.dnolja.review.model.service.ReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,4 +32,14 @@ public class ReviewController {
 
         return new CommonResponse<>(String.format("%s가 임시저장되었습니다.", request.getReviewId()));
     }
+
+    @PostMapping
+    public CommonResponse<String> create(@RequestBody ReviewPostRequest request){
+        log.info("request ::{}", request);
+
+        return new CommonResponse<>("성공했습니다.");
+
+    }
+
+
 }

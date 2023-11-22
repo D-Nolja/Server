@@ -4,6 +4,7 @@ import com.dang.dnolja.daily.model.mapper.DailyMapper;
 import com.dang.dnolja.global.Exception.InvalidAuthorityException;
 import com.dang.dnolja.plan.model.mapper.PlanMapper;
 import com.dang.dnolja.review.controller.dto.request.ReviewItemRequest;
+import com.dang.dnolja.review.controller.dto.request.ReviewPostRequest;
 import com.dang.dnolja.review.model.mapper.ReviewMapper;
 import com.dang.dnolja.review.model.service.ReviewService;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,11 @@ public class ReviewServiceImpl implements ReviewService {
 
         //reviewMapper에서 수정하기
         reviewMapper.updateReviewItem(request);
+
+    }
+
+    @Override
+    public void createReview(ReviewPostRequest request) {
 
     }
 }
