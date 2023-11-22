@@ -16,10 +16,6 @@ CREATE SCHEMA IF NOT EXISTS `D_Nolja` DEFAULT CHARACTER SET utf8 ;
 USE `D_Nolja` ;
 
 -- -----------------------------------------------------
--- Table `D_Nolja`.`table1`
--- -----------------------------------------------------
-
--- -----------------------------------------------------
 -- Table `D_Nolja`.`Users`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `D_Nolja`.`Users` ;
@@ -66,130 +62,8 @@ CREATE TABLE IF NOT EXISTS `D_Nolja`.`Spot` (
     ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `D_Nolja`.`Plan`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`Plan` ;
-
-CREATE TABLE IF NOT EXISTS `D_Nolja`.`Plan` (
-                                                `plan_id` BIGINT NOT NULL AUTO_INCREMENT,
-                                                `user_id` BIGINT NOT NULL,
-                                                `start` DATE NOT NULL,
-                                                `end` DATE NOT NULL,
-                                                `created_at` VARCHAR(45) NOT NULL DEFAULT 'current_timestamp',
-    `modified_at` VARCHAR(45) NOT NULL DEFAULT 'current_timestamp',
-    PRIMARY KEY (`plan_id`),
-    INDEX `fk_Plan_Users1_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Plan_Users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `D_Nolja`.`Users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `D_Nolja`.`Daily`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`Daily` ;
-
-CREATE TABLE IF NOT EXISTS `D_Nolja`.`Daily` (
-                                                 `daily_id` BIGINT NOT NULL AUTO_INCREMENT,
-                                                 `plan_id` BIGINT NOT NULL,
-                                                 `order` INT NOT NULL,
-                                                 `day_num` INT NOT NULL,
-                                                 `created_at` VARCHAR(45) NOT NULL DEFAULT 'current_timestamp',
-    `modified_at` TIMESTAMP NOT NULL DEFAULT current_timestamp,
-    PRIMARY KEY (`daily_id`),
-    INDEX `fk_Daily_Plan_idx` (`plan_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Daily_Plan`
-    FOREIGN KEY (`plan_id`)
-    REFERENCES `D_Nolja`.`Plan` (`plan_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `D_Nolja`.`Review`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`Review` ;
-
-CREATE TABLE IF NOT EXISTS `D_Nolja`.`Review` (
-                                                  `review_id` BIGINT NOT NULL AUTO_INCREMENT,
-                                                  `plan_id` BIGINT NOT NULL,
-                                                  `user_id` BIGINT NOT NULL,
-                                                  `hit` INT NULL DEFAULT 0,
-                                                  `created_at` TIMESTAMP NULL DEFAULT current_timestamp,
-                                                  `modified_at` TIMESTAMP NULL DEFAULT current_timestamp,
-                                                  `deleted_at` TIMESTAMP NULL,
-                                                  INDEX `fk_Review_Plan1_idx` (`plan_id` ASC) VISIBLE,
-    INDEX `fk_Review_Users1_idx` (`user_id` ASC) VISIBLE,
-    PRIMARY KEY (`review_id`),
-    CONSTRAINT `fk_Review_Plan1`
-    FOREIGN KEY (`plan_id`)
-    REFERENCES `D_Nolja`.`Plan` (`plan_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Review_Users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `D_Nolja`.`Users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `D_Nolja`.`Daily_Review`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`Daily_Review` ;
-
-CREATE TABLE IF NOT EXISTS `D_Nolja`.`Daily_Review` (
-                                                        `daily_review_id` BIGINT NOT NULL AUTO_INCREMENT,
-                                                        `daily_id` BIGINT NOT NULL,
-                                                        `review_id` BIGINT NOT NULL,
-                                                        `content` VARCHAR(500) NULL,
-    `img` VARCHAR(300) NULL,
-    `modified_at` TIMESTAMP NULL DEFAULT current_timestamp,
-    `created_at` TIMESTAMP NULL DEFAULT current_timestamp,
-    `deleted_at` TIMESTAMP NULL,
-    PRIMARY KEY (`daily_review_id`),
-    INDEX `fk_Daily_Review_Daily1_idx` (`daily_id` ASC) VISIBLE,
-    INDEX `fk_Daily_Review_Review1_idx` (`review_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Daily_Review_Daily1`
-    FOREIGN KEY (`daily_id`)
-    REFERENCES `D_Nolja`.`Daily` (`daily_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Daily_Review_Review1`
-    FOREIGN KEY (`review_id`)
-    REFERENCES `D_Nolja`.`Review` (`review_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `D_Nolja`.`daily_to_spot`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`daily_to_spot` ;
-
-CREATE TABLE IF NOT EXISTS `D_Nolja`.`daily_to_spot` (
-                                                         `daily_id` BIGINT NOT NULL,
-                                                         `spot_id` BIGINT NOT NULL,
-                                                         INDEX `fk_table4_Daily1_idx` (`daily_id` ASC) VISIBLE,
-    INDEX `fk_table4_Spot1_idx` (`spot_id` ASC) VISIBLE,
-    CONSTRAINT `fk_table4_Daily1`
-    FOREIGN KEY (`daily_id`)
-    REFERENCES `D_Nolja`.`Daily` (`daily_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_table4_Spot1`
-    FOREIGN KEY (`spot_id`)
-    REFERENCES `D_Nolja`.`Spot` (`spot_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -204,82 +78,122 @@ CREATE TABLE IF NOT EXISTS `D_Nolja`.`Email_Verifications` (
     ENGINE = InnoDB;
 
 
+
+-- -----------------------------------------------------
+-- Table `D_Nolja`.`Plan`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `D_Nolja`.`Plan`;
+CREATE TABLE IF NOT EXISTS `D_Nolja`.`Plan` (
+                                                `plan_id` BIGINT NOT NULL  AUTO_INCREMENT,
+                                                `user_id` BIGINT NOT NULL,
+                                                `title` varchar(100) NOT NULL,
+                                                `start` VARCHAR(30) NOT NULL,
+                                                `end` VARCHAR(30) NOT NULL,
+                                                `created_at` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+                                                `modified_at` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+                                                PRIMARY KEY (`plan_id`),
+    INDEX `fk_Plan_Users1_idx` (`user_id` ASC) VISIBLE,
+    CONSTRAINT `fk_Plan_Users1` FOREIGN KEY (`user_id`) REFERENCES `D_Nolja`.`Users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
+-- -----------------------------------------------------
+-- Table `D_Nolja`.`Daily`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `D_Nolja`.`Daily`;
+CREATE TABLE IF NOT EXISTS `D_Nolja`.`Daily` (
+                                                 `daily_id` BIGINT NOT NULL  AUTO_INCREMENT,
+                                                 `plan_id` BIGINT NOT NULL,
+                                                 `day_num` INT NOT NULL,
+                                                 `created_at` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+                                                 `modified_at` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+                                                 PRIMARY KEY (`daily_id`),
+    INDEX `fk_Daily_Plan_idx` (`plan_id` ASC) VISIBLE,
+    CONSTRAINT `fk_Daily_Plan` FOREIGN KEY (`plan_id`) REFERENCES `D_Nolja`.`Plan` (`plan_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
+-- -----------------------------------------------------
+-- Table `D_Nolja`.`daily_to_spot`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `D_Nolja`.`daily_to_spot`;
+
+-- -----------------------------------------------------
+-- Table `D_Nolja`.`Review`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `D_Nolja`.`Review` ;
+
+CREATE TABLE IF NOT EXISTS `D_Nolja`.`Review` (
+                                                  `review_id` BIGINT NOT NULL AUTO_INCREMENT,
+                                                  `daily_id` BIGINT NOT NULL,
+                                                  `spot_id` BIGINT NOT NULL,
+                                                  `order` INT NULL,
+                                                  `contents` VARCHAR(1000) NULL,
+    `img` VARCHAR(1000) NULL,
+    INDEX `fk_table4_Daily1_idx` (`daily_id` ASC) VISIBLE,
+    INDEX `fk_table4_Spot1_idx` (`spot_id` ASC) VISIBLE,
+    PRIMARY KEY (`review_id`),
+    CONSTRAINT `fk_table4_Daily1`
+    FOREIGN KEY (`daily_id`)
+    REFERENCES `D_Nolja`.`Daily` (`daily_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_table4_Spot1`
+    FOREIGN KEY (`spot_id`)
+    REFERENCES `D_Nolja`.`Spot` (`spot_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
+
+
 -- -----------------------------------------------------
 -- Table `D_Nolja`.`Comment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`Comment` ;
-
+DROP TABLE IF EXISTS `D_Nolja`.`Comment`;
 CREATE TABLE IF NOT EXISTS `D_Nolja`.`Comment` (
-                                                   `comment_id` BIGINT NOT NULL AUTO_INCREMENT,
+                                                   `comment_id` BIGINT NOT NULL  AUTO_INCREMENT,
                                                    `review_id` BIGINT NOT NULL,
                                                    `user_id` BIGINT NOT NULL,
                                                    `content` VARCHAR(1000) NULL,
     `registered_at` TIMESTAMP NULL DEFAULT current_timestamp,
     `modified_at` TIMESTAMP NULL DEFAULT current_timestamp,
     `deleted_at` TIMESTAMP NULL,
+    `Plan_plan_id` BIGINT NOT NULL,
     PRIMARY KEY (`comment_id`),
-    INDEX `fk_Comment_Review1_idx` (`review_id` ASC) VISIBLE,
     INDEX `fk_Comment_Users1_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Comment_Review1`
-    FOREIGN KEY (`review_id`)
-    REFERENCES `D_Nolja`.`Review` (`review_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Comment_Users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `D_Nolja`.`Users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-
-
+    INDEX `fk_Comment_Plan1_idx` (`Plan_plan_id` ASC) VISIBLE,
+    CONSTRAINT `fk_Comment_Users1` FOREIGN KEY (`user_id`) REFERENCES `D_Nolja`.`Users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `fk_Comment_Plan1` FOREIGN KEY (`Plan_plan_id`) REFERENCES `D_Nolja`.`Plan` (`plan_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `D_Nolja`.`Like`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`Like` ;
-
+DROP TABLE IF EXISTS `D_Nolja`.`Like`;
 CREATE TABLE IF NOT EXISTS `D_Nolja`.`Like` (
-                                                `like_id` BIGINT NOT NULL AUTO_INCREMENT,
+                                                `like_id` BIGINT NOT NULL  AUTO_INCREMENT,
                                                 `review_id` BIGINT NOT NULL,
                                                 `user_id` BIGINT NOT NULL,
                                                 `registered_at` TIMESTAMP NULL DEFAULT current_timestamp,
+                                                `Plan_plan_id` BIGINT NOT NULL,
                                                 PRIMARY KEY (`like_id`),
-    INDEX `fk_Like_Review1_idx` (`review_id` ASC) VISIBLE,
     INDEX `fk_Like_Users1_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Like_Review1`
-    FOREIGN KEY (`review_id`)
-    REFERENCES `D_Nolja`.`Review` (`review_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Like_Users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `D_Nolja`.`Users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-
-
+    INDEX `fk_Like_Plan1_idx` (`Plan_plan_id` ASC) VISIBLE,
+    CONSTRAINT `fk_Like_Users1` FOREIGN KEY (`user_id`) REFERENCES `D_Nolja`.`Users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `fk_Like_Plan1` FOREIGN KEY (`Plan_plan_id`) REFERENCES `D_Nolja`.`Plan` (`plan_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `D_Nolja`.`Alarm`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `D_Nolja`.`Alarm` ;
-
+DROP TABLE IF EXISTS `D_Nolja`.`Alarm`;
 CREATE TABLE IF NOT EXISTS `D_Nolja`.`Alarm` (
-                                                 `alarm_id` BIGINT NOT NULL AUTO_INCREMENT,
+                                                 `alarm_id` BIGINT NOT NULL,
                                                  `user_id` BIGINT NOT NULL,
                                                  `content` VARCHAR(100) NULL,
     `type` VARCHAR(45) NULL,
-    `registered_at` TIMESTAMP NULL,
-    `updated_at` TIMESTAMP NULL,
+    `registered_at` TIMESTAMP NULL DEFAULT current_timestamp,
+    `updated_at` TIMESTAMP NULL DEFAULT current_timestamp,
     `target_id` BIGINT NULL,
     PRIMARY KEY (`alarm_id`),
     INDEX `fk_Alarm_Users1_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Alarm_Users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `D_Nolja`.`Users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+    CONSTRAINT `fk_Alarm_Users1` FOREIGN KEY (`user_id`) REFERENCES `D_Nolja`.`Users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

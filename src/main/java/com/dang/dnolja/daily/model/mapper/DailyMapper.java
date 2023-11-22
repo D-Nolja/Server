@@ -8,5 +8,5 @@ import java.util.Map;
 public interface DailyMapper {
     public long insertDaily(Map<String, Object> params);
 
-    public long insertDailyToSpot(Map<String, Object> params);
+    public long getLastPk();
 }
