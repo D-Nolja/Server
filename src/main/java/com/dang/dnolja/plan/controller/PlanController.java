@@ -54,4 +54,12 @@ public class PlanController {
         return new CommonResponse<>(result);
     }
 
+    @DeleteMapping("{id}")
+    public CommonResponse<String> remove(@PathVariable("id") long planId, Authentication auth){
+        CustomUserDetail user = (CustomUserDetail) auth.getPrincipal();
+        planService.delete(planId, user.getUser().getId());
+
+        return new CommonResponse<>(String.format("%s가 삭제되었습니다.", planId));
+    }
+
 }

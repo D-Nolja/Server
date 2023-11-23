@@ -3,6 +3,7 @@ package com.dang.dnolja.plan.model.service.impl;
 import com.dang.dnolja.daily.controller.dto.response.DailyListResponse;
 import com.dang.dnolja.daily.model.dto.DailyDetailDto;
 import  com.dang.dnolja.daily.model.mapper.DailyMapper;
+import com.dang.dnolja.global.Exception.InvalidAuthorityException;
 import com.dang.dnolja.plan.controller.dto.request.PlanListRequest;
 import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
 import com.dang.dnolja.plan.controller.dto.response.PlanDetailDto;
@@ -131,6 +132,102 @@ public class PlanServiceImpl implements PlanService {
             //daily를 생성한다. + plan ID 같이 넣어준다.
     }
 
+    @Override
+    @Transactional
+    public void delete(long planId, long userId) {
+        //PLAN ID에서 userId 일치하는지 확인
+        long authorId = planMapper.getUserIdById(planId);
+        //select user_id from plan where plan_id =1;
+
+        if(authorId != userId) throw new InvalidAuthorityException("계획 삭제 권한이 없습니다.");
+
+        //plan_id로 모든 daily_id를 가져온다.
+        List<Long> dailyIds = planMapper.getDailyIdsById(planId);
+        //select daily_id from daily where plan_id = 1;
+
+        //가져온 daily_id 순회
+        for(Long dailyId: dailyIds){
+            reviewMapper.deleteByDailyId(dailyId);
+            //DELETE FROM Review
+            //WHERE daily_id=데이터값
+            dailyMapper.deleteById(dailyId);
+            //DELETE FROM Daily
+            //WHERE daily_id=데이터값
+        }
+
+        planMapper.deleteById(planId);
+        //DELETE FROM Plan
+        //WHERE plan_id=데이터값
+
+
+
+        //해당 daily_id를 갖는 review 전부 삭제
+        //해당 daily 삭제
+        //plan 삭제
+
+    }
+
+
+//    {
+//        "title" : "여행계획 1",
+//        "plans" : [ [701,732,753,744,1],
+//                    [685,706,747,742,731],
+//                    [710,732,732,743]
+//                        ],
+//        "start" : "시작날짜",
+//        "end" : "종료날짜"
+//    }
+    @Transactional
+    public void modify(long planId, long userId, PlanModifyReqeust request){
+        //PLAN ID에서 userId 일치하는지 확인
+        long authorId = planMapper.getUserIdById(planId);
+        //select user_id from plan where plan_id =1;
+
+        if(authorId != userId) throw new InvalidAuthorityException("계획 수정 권한이 없습니다.");
+
+        //plan_id로 모든 daily_id를 가져온다.
+        List<Long> dailyIds = planMapper.getDailyIdsById(planId);
+        //select daily_id from daily where plan_id = 1;
+
+        //가져온 daily_id 순회
+        for(Long dailyId: dailyIds){
+            reviewMapper.deleteByDailyId(dailyId);
+            //DELETE FROM Review
+            //WHERE daily_id=데이터값
+            dailyMapper.deleteById(dailyId);
+            //DELETE FROM Daily
+            //WHERE daily_id=데이터값
+        }
+
+
+
+        //plan 업데이트
+        planMapper.modify(request);
+
+        //review 생성하기
+        int dayNum = 1;
+        for(int[] dayPlan : request.getPlans()){
+            log.debug("dayNum :: {}", dayNum);
+            Map<String, Object> dailyParams = getDailyParams(planId, dayNum);
+            log.debug("dailyParams :: {}", dailyParams);
+            dailyMapper.insertDaily(dailyParams);
+            long dailyId = dailyMapper.getLastPk();
+            log.debug("{}일 계획 생성 성공 ", dayNum);
+            int order = 1;
+            for(int spotId : dayPlan){
+                Map<String, Object> reviewParams = getReviewParams(dailyId, spotId, order);
+                log.debug("reviewParams :: {}", reviewParams);
+                reviewMapper.insertDailyToSpot(reviewParams);
+                order++;
+            }
+            dayNum ++;
+        }
+
+
+
+
+
+    }
 
 
     private Map<String, Object> getReviewParams(long dailyId, int spotId, int order) {

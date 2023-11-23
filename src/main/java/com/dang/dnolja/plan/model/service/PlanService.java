@@ -21,6 +21,8 @@ public interface PlanService {
 
     void create(Long userId, PlanPostRequest planPostRequest);
 
+    void delete(long planId, long userId);
+
 
 
 
