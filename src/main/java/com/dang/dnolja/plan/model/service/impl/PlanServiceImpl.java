@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,6 +99,7 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    @Transactional
     public void create(Long userId, PlanPostRequest request) {
 
         Map<String, Object> planParams = getPlanParams(userId, request);

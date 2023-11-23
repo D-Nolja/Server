@@ -1,11 +1,11 @@
-package com.dang.dnolja.plan.model.dto;
+package com.dang.dnolja.review.model.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
-public class Plan {
+public class PlanReview {
+
+    private String userName;
     private long planId;
     private long userId;
     private String title;
@@ -16,4 +16,5 @@ public class Plan {
     private String mainTitle;
     private String mainImg;
     private String mainContents;
+
 }

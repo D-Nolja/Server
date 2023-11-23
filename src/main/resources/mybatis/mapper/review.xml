@@ -23,5 +23,29 @@
     </select>
 
 
+    <select id="getReviewDetailList" parameterType="map" resultType="com.dang.dnolja.review.model.dto.ReviewDetailDto">
+        SELECT r.review_id as reviewId, r.`order`, s.spot_id as spotId, s.name, s.type1 as category, s.type2 as type, s.x, s.y,  r.contents, r.img
+        FROM Daily d
+                 JOIN Review r ON d.daily_id = r.daily_id
+                 JOIN Spot s ON r.spot_id = s.spot_id
+        WHERE d.plan_id = #{planId} and d.day_num = #{day};
+    </select>
+
+    <select id="findPlanReviewById" parameterType="long" resultType="com.dang.dnolja.review.model.dto.PlanReview">
+        select u.nick_name as userName, p.plan_id as planId, u.user_id as userId,
+               p.title, `start` , `end`, p.created_at as createdAt, p.modified_at as modifiedAt,
+               p.review_title as mainTitle, p.review_img as mainImg, p.review_contents as mainContents
+        from Plan p
+                 JOIN Users u on p.user_id = u.user_id
+        where p.plan_id = #{planId}
+    </select>
+
+
+    <update id="updateReviewMetaData" parameterType="com.dang.dnolja.review.controller.dto.request.ReviewPostRequest">
+        update Plan
+        set review_title = #{reviewTitle}, review_contents=#{mainContents}, review_img=#{mainImg}
+        where plan_id = #{planId}
+    </update>
+
 
 </mapper>

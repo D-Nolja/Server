@@ -9,6 +9,8 @@ import java.util.List;
 
 @Data
 public class ReviewPostRequest {
+    @NotNull
+    private long planId;
 
     @NotNull
     private String reviewTitle;
@@ -16,6 +18,6 @@ public class ReviewPostRequest {
     private String mainImg;
     private String mainContents;
 
-    private List<ReviewDetails> reviewDetails;
+    private List<ReviewItemRequest> reviews;
 
 }
