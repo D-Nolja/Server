@@ -85,4 +85,16 @@
         WHERE daily_id=#{dailyId}
     </delete>
 
+    <update id="resetByDailyId" parameterType="long">
+        update Review
+        set contents = "", img = ""
+        where daily_id = #{dailyId}
+    </update>
+
+    <update id="modify" parameterType="com.dang.dnolja.review.controller.dto.request.ReviewModifyRequest">
+        update Review
+        set contents = #{contents}, img = #{img}
+        where review_id = #{reviewId}
+    </update>
+
 </mapper>

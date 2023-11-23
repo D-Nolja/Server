@@ -3,12 +3,10 @@ package com.dang.dnolja.review.model.service.impl;
 import com.dang.dnolja.daily.model.mapper.DailyMapper;
 import com.dang.dnolja.global.Exception.InvalidAuthorityException;
 import com.dang.dnolja.plan.controller.dto.request.PlanListRequest;
-import com.dang.dnolja.review.controller.dto.request.ReviewListRequest;
+import com.dang.dnolja.review.controller.dto.request.*;
 import com.dang.dnolja.review.controller.dto.response.ReviewListResponse;
 import com.dang.dnolja.review.model.dto.PlanReview;
 import com.dang.dnolja.plan.model.mapper.PlanMapper;
-import com.dang.dnolja.review.controller.dto.request.ReviewItemRequest;
-import com.dang.dnolja.review.controller.dto.request.ReviewPostRequest;
 import com.dang.dnolja.review.controller.dto.response.ReviewResponse;
 import com.dang.dnolja.review.model.dto.ReviewDetailDto;
 import com.dang.dnolja.review.model.dto.ReviewList;
@@ -50,6 +48,51 @@ public class ReviewServiceImpl implements ReviewService {
                 .currentPage((int)searchParams.get("currentPage"))
                 .totalPageCount(totalPageCount)
                 .build();
+    }
+
+    @Override
+    public void delete(long planId, long userId) {
+        long authorId = planMapper.getUserIdById(planId);
+
+        if(authorId != userId) throw new InvalidAuthorityException("삭제 권한이 없습니다.");
+
+
+        //plan 칼럼에서 review_title, review_img, review_contents 없애기
+        planMapper.reset(planId);
+        //daily id 찾아오기
+        List<Long> dailyIds = dailyMapper.getDailyIdsByPlanId(planId);
+
+
+
+        //daily id 순회 돌면서
+            //review 테이블 contents img 없애기
+        for(long dailyId : dailyIds){
+            reviewMapper.resetByDailyId(dailyId);
+        }
+
+    }
+
+    @Override
+    public void modify(ReviewModifyRequest request, long userId) {
+        long authorId = reviewMapper.getUserId(request.getReviewId());
+
+        if(authorId != userId) throw new InvalidAuthorityException("수정 권한이 없습니다.");
+
+        //review의 contents, img 수정하기
+
+        reviewMapper.modify(request);
+    }
+
+    @Override
+    public void modifyMain(MainReviewModifyRequest request, long userId) {
+
+        long authorId = planMapper.getUserIdById(request.getPlanId());
+
+        if(authorId != userId) throw new InvalidAuthorityException("수정 권한이 없습니다.");
+
+
+        //plan의 review_title, review_img, review_contents 업데이트
+        planMapper.modifyReview(request);
     }
 
     @Override

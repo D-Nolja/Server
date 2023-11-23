@@ -1,8 +1,6 @@
 package com.dang.dnolja.review.model.service;
 
-import com.dang.dnolja.review.controller.dto.request.ReviewItemRequest;
-import com.dang.dnolja.review.controller.dto.request.ReviewListRequest;
-import com.dang.dnolja.review.controller.dto.request.ReviewPostRequest;
+import com.dang.dnolja.review.controller.dto.request.*;
 import com.dang.dnolja.review.controller.dto.response.ReviewListResponse;
 import com.dang.dnolja.review.controller.dto.response.ReviewResponse;
 import org.apache.ibatis.javassist.NotFoundException;
@@ -19,4 +17,10 @@ ReviewService {
     public ReviewResponse getDetail(Long planId) throws NotFoundException;
 
     public ReviewListResponse getList(ReviewListRequest request);
+
+    void delete(long planId, long id);
+
+    void modify(ReviewModifyRequest request, long id);
+
+    void modifyMain(MainReviewModifyRequest request, long id);
 }
