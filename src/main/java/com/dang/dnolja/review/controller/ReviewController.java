@@ -2,9 +2,13 @@ package com.dang.dnolja.review.controller;
 
 import com.dang.dnolja.auth.details.CustomUserDetail;
 import com.dang.dnolja.global.response.CommonResponse;
+import com.dang.dnolja.plan.controller.dto.request.PlanListRequest;
+import com.dang.dnolja.plan.controller.dto.response.PlanListDto;
 import com.dang.dnolja.plan.model.service.PlanService;
 import com.dang.dnolja.review.controller.dto.request.ReviewItemRequest;
+import com.dang.dnolja.review.controller.dto.request.ReviewListRequest;
 import com.dang.dnolja.review.controller.dto.request.ReviewPostRequest;
+import com.dang.dnolja.review.controller.dto.response.ReviewListResponse;
 import com.dang.dnolja.review.controller.dto.response.ReviewResponse;
 import com.dang.dnolja.review.model.service.ReviewService;
 import lombok.AllArgsConstructor;
@@ -12,7 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController()
@@ -49,5 +56,12 @@ public class ReviewController {
         return new CommonResponse<>(result);
     }
 
+
+    @GetMapping()
+    public CommonResponse<ReviewListResponse> getList(@ModelAttribute @Valid ReviewListRequest request , BindingResult bindingResult){
+        ReviewListResponse result = reviewService.getList(request);
+        log.debug("[PlanController getList] request :: {}",request);
+        return new CommonResponse<>(result);
+    }
 
 }
