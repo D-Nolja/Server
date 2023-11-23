@@ -1,9 +1,12 @@
 package com.dang.dnolja.review.controller.dto.request;
 
+import lombok.Data;
+
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Pattern;
 
+@Data
 public class ReviewListRequest {
 
     @DecimalMin(value = "0", inclusive = false, message = "currentPage는 0보다 큰 정수여야 합니다.")

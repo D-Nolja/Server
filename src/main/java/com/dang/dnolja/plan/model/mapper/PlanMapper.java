@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface PlanMapper {
 
-    public long createPlan(Map<String, Object> params);
+    public void createPlan(Map<String, Object> params);
 
     public Plan findById(long planId);
 

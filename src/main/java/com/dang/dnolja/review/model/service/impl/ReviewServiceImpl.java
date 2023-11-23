@@ -2,6 +2,9 @@ package com.dang.dnolja.review.model.service.impl;
 
 import com.dang.dnolja.daily.model.mapper.DailyMapper;
 import com.dang.dnolja.global.Exception.InvalidAuthorityException;
+import com.dang.dnolja.plan.controller.dto.request.PlanListRequest;
+import com.dang.dnolja.review.controller.dto.request.ReviewListRequest;
+import com.dang.dnolja.review.controller.dto.response.ReviewListResponse;
 import com.dang.dnolja.review.model.dto.PlanReview;
 import com.dang.dnolja.plan.model.mapper.PlanMapper;
 import com.dang.dnolja.review.controller.dto.request.ReviewItemRequest;
@@ -9,6 +12,7 @@ import com.dang.dnolja.review.controller.dto.request.ReviewPostRequest;
 import com.dang.dnolja.review.controller.dto.response.ReviewResponse;
 import com.dang.dnolja.review.model.dto.ReviewDetailDto;
 import com.dang.dnolja.review.model.dto.ReviewList;
+import com.dang.dnolja.review.model.dto.ReviewMetaData;
 import com.dang.dnolja.review.model.mapper.ReviewMapper;
 import com.dang.dnolja.review.model.service.ReviewService;
 import lombok.AllArgsConstructor;
@@ -32,7 +36,21 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewMapper reviewMapper;
     private final DailyMapper dailyMapper;
 
+    @Override
+    public ReviewListResponse getList(ReviewListRequest request) {
+        Map<String, Object> searchParams = getSearchParams(request);
 
+        List<ReviewMetaData> result  = reviewMapper.getList(searchParams);
+        int totalPageCount = reviewMapper.getTotalReviewCount(searchParams);
+
+
+
+        return ReviewListResponse.builder()
+                .reviews(result)
+                .currentPage((int)searchParams.get("currentPage"))
+                .totalPageCount(totalPageCount)
+                .build();
+    }
 
     @Override
     public void createReviewItem(ReviewItemRequest request, long userId) {
@@ -104,4 +122,20 @@ public class ReviewServiceImpl implements ReviewService {
                 .reviewList(dailyList)
                 .build();
     }
+
+    private Map<String, Object> getSearchParams(ReviewListRequest request) {
+        Map<String, Object> params = new HashMap<>();
+        log.debug("[LocationServiceImpl findLocation] request :: {}", request);
+
+        params.put("keyWord", request.getKeyword() == null ? "" : request.getKeyword());
+        int pageNo = request.getCurrentPage() == null ? 1: request.getCurrentPage();
+        int sizePerPage = request.getSizePerPage()== null ? 5 : request.getSizePerPage();
+        int start = pageNo * sizePerPage - sizePerPage;
+        params.put("start", start);
+        params.put("sizePerPage", sizePerPage);
+        params.put("currentPage", pageNo);
+
+        return params;
+    }
+
 }

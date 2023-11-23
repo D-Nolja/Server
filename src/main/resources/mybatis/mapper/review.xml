@@ -48,4 +48,35 @@
     </update>
 
 
+    <select id="getList" parameterType="map" resultType="com.dang.dnolja.review.model.dto.ReviewMetaData">
+        select p.plan_id as planId, p.user_id as userId, u.nick_name as userName,
+               p.review_title as reviewTitle, p.review_img as mainImg,
+               p.start, p.end, p.created_at as createdAt, p.modified_at as modifiedAt
+        from Plan p
+        JOIN Users u on u.user_id = p.user_id
+        <where>
+            <include refid="search"></include>
+        </where>
+        order by p.plan_id
+        limit #{start}, #{sizePerPage}
+    </select>
+
+    <sql id="search">
+            and review_title is not null
+        <if test="keyWord != null and keyWord != ''">
+            and title like concat('%', #{keyWord}, '%')
+        </if>
+        <if test="userId != null and userId!=''">
+            and p.user_id = #{userId}
+        </if>
+    </sql>
+
+    <select id="getTotalReviewCount" parameterType="map" resultType="int">
+        select count(plan_id)
+        from Plan p
+        <where>
+            <include refid="search"></include>
+        </where>
+    </select>
+
 </mapper>
