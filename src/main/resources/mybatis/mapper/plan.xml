@@ -66,4 +66,18 @@
         where plan_id = #{planId}
     </update>
 
+    <update id="reset" parameterType="long">
+        update Plan
+        set review_title="", review_img="", review_contents=""
+        where plan_id = #{planId}
+    </update>
+
+    <update id="modifyReview" parameterType="com.dang.dnolja.review.controller.dto.request.MainReviewModifyRequest">
+        update Plan
+        set review_title = #{title}, review_img =#{img}, review_contents=#{contents}
+        where plan_id = #{planId}
+    </update>
+
+
+
 </mapper>

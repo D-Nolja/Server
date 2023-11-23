@@ -4,6 +4,7 @@ import com.dang.dnolja.plan.controller.dto.request.PlanModifyRequest;
 import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
 import com.dang.dnolja.plan.controller.dto.response.PlanItemDto;
 import com.dang.dnolja.plan.model.dto.Plan;
+import com.dang.dnolja.review.controller.dto.request.MainReviewModifyRequest;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,8 @@ public interface PlanMapper {
     public void deleteById(long planId);
 
     public void modify(PlanModifyRequest request);
+
+    public void reset(long planId);
+
+    public void modifyReview(MainReviewModifyRequest request);
 }

@@ -1,6 +1,7 @@
 package com.dang.dnolja.review.model.mapper;
 
 import com.dang.dnolja.review.controller.dto.request.ReviewListRequest;
+import com.dang.dnolja.review.controller.dto.request.ReviewModifyRequest;
 import com.dang.dnolja.review.controller.dto.request.ReviewPostRequest;
 import com.dang.dnolja.review.model.dto.PlanReview;
 import com.dang.dnolja.review.controller.dto.request.ReviewItemRequest;
@@ -30,4 +31,8 @@ public interface ReviewMapper {
     public int getTotalReviewCount(Map<String, Object> params);
 
     public void deleteByDailyId(long dailyId);
+
+    public void resetByDailyId(long dailyId);
+
+    public void modify(ReviewModifyRequest request);
 }
