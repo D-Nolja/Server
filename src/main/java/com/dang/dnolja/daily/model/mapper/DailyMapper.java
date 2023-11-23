@@ -15,4 +15,8 @@ public interface DailyMapper {
     public List<DailyDetailDto> getDailyDetailList(Map<String, Object> params);
 
     public int getMaxDayNum(long planId);
+
+    public List<Long> getDailyIdsByPlanId(long planId);
+
+    public void deleteById(long dailyId);
 }

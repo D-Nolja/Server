@@ -29,5 +29,5 @@ public interface ReviewMapper {
 
     public int getTotalReviewCount(Map<String, Object> params);
 
-
+    public void deleteByDailyId(long dailyId);
 }

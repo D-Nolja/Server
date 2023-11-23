@@ -27,4 +27,16 @@
         WHERE d.plan_id = #{planId};
     </select>
 
+    <select id="getDailyIdsByPlanId" parameterType="long" resultType="long">
+        select daily_id
+        from Daily
+        where plan_id = #{planId}
+    </select>
+
+    <delete id="deleteById" parameterType="long">
+        DELETE
+        FROM Daily
+        WHERE daily_id=#{dailyId}
+    </delete>
+
 </mapper>

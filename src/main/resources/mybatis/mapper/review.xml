@@ -79,4 +79,10 @@
         </where>
     </select>
 
+    <delete id="deleteByDailyId" parameterType="long">
+        DELETE
+        FROM Review
+        WHERE daily_id=#{dailyId}
+    </delete>
+
 </mapper>

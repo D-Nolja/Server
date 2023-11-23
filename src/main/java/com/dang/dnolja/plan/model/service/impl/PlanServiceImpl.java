@@ -5,6 +5,7 @@ import com.dang.dnolja.daily.model.dto.DailyDetailDto;
 import  com.dang.dnolja.daily.model.mapper.DailyMapper;
 import com.dang.dnolja.global.Exception.InvalidAuthorityException;
 import com.dang.dnolja.plan.controller.dto.request.PlanListRequest;
+import com.dang.dnolja.plan.controller.dto.request.PlanModifyRequest;
 import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
 import com.dang.dnolja.plan.controller.dto.response.PlanDetailDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanItemDto;
@@ -142,9 +143,10 @@ public class PlanServiceImpl implements PlanService {
         if(authorId != userId) throw new InvalidAuthorityException("계획 삭제 권한이 없습니다.");
 
         //plan_id로 모든 daily_id를 가져온다.
-        List<Long> dailyIds = planMapper.getDailyIdsById(planId);
+        List<Long> dailyIds = dailyMapper.getDailyIdsByPlanId(planId);
         //select daily_id from daily where plan_id = 1;
 
+        log.debug("{}", dailyIds);
         //가져온 daily_id 순회
         for(Long dailyId: dailyIds){
             reviewMapper.deleteByDailyId(dailyId);
@@ -177,8 +179,9 @@ public class PlanServiceImpl implements PlanService {
 //        "start" : "시작날짜",
 //        "end" : "종료날짜"
 //    }
+    @Override
     @Transactional
-    public void modify(long planId, long userId, PlanModifyReqeust request){
+    public void modify(long planId, long userId, PlanModifyRequest request){
         //PLAN ID에서 userId 일치하는지 확인
         long authorId = planMapper.getUserIdById(planId);
         //select user_id from plan where plan_id =1;
@@ -186,7 +189,7 @@ public class PlanServiceImpl implements PlanService {
         if(authorId != userId) throw new InvalidAuthorityException("계획 수정 권한이 없습니다.");
 
         //plan_id로 모든 daily_id를 가져온다.
-        List<Long> dailyIds = planMapper.getDailyIdsById(planId);
+        List<Long> dailyIds = dailyMapper.getDailyIdsByPlanId(planId);
         //select daily_id from daily where plan_id = 1;
 
         //가져온 daily_id 순회
@@ -198,8 +201,6 @@ public class PlanServiceImpl implements PlanService {
             //DELETE FROM Daily
             //WHERE daily_id=데이터값
         }
-
-
 
         //plan 업데이트
         planMapper.modify(request);
@@ -222,11 +223,6 @@ public class PlanServiceImpl implements PlanService {
             }
             dayNum ++;
         }
-
-
-
-
-
     }
 
 

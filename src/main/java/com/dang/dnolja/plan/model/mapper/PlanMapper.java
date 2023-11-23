@@ -1,5 +1,7 @@
 package com.dang.dnolja.plan.model.mapper;
 
+import com.dang.dnolja.plan.controller.dto.request.PlanModifyRequest;
+import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
 import com.dang.dnolja.plan.controller.dto.response.PlanItemDto;
 import com.dang.dnolja.plan.model.dto.Plan;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,4 +22,9 @@ public interface PlanMapper {
 
     public long getLastPk();
 
+    public long getUserIdById(long planId);
+
+    public void deleteById(long planId);
+
+    public void modify(PlanModifyRequest request);
 }
