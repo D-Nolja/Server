@@ -46,4 +46,24 @@
         </where>
     </select>
 
+    <select id="getUserIdById" parameterType="long" resultType="long">
+        select user_id
+        from Plan
+        where plan_id = #{planId}
+    </select>
+
+
+
+    <delete id="deleteById" parameterType="long">
+        DELETE
+        FROM Plan
+        WHERE plan_id=#{planId}
+    </delete>
+
+    <update id="modify" parameterType="com.dang.dnolja.plan.controller.dto.request.PlanModifyRequest">
+        update Plan
+        set title = #{title}, start=#{start} , `end`=#{end}, modified_at=current_timestamp
+        where plan_id = #{planId}
+    </update>
+
 </mapper>

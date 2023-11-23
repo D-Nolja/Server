@@ -3,6 +3,7 @@ package com.dang.dnolja.plan.controller;
 import com.dang.dnolja.auth.details.CustomUserDetail;
 import com.dang.dnolja.global.response.CommonResponse;
 import com.dang.dnolja.plan.controller.dto.request.PlanListRequest;
+import com.dang.dnolja.plan.controller.dto.request.PlanModifyRequest;
 import com.dang.dnolja.plan.controller.dto.request.PlanPostRequest;
 import com.dang.dnolja.plan.controller.dto.response.PlanDetailDto;
 import com.dang.dnolja.plan.controller.dto.response.PlanListDto;
@@ -52,6 +53,23 @@ public class PlanController {
         PlanDetailDto result = planService.getDetail(planId);
         
         return new CommonResponse<>(result);
+    }
+
+    @DeleteMapping("{id}")
+    public CommonResponse<String> remove(@PathVariable("id") long planId, Authentication auth){
+        CustomUserDetail user = (CustomUserDetail) auth.getPrincipal();
+        planService.delete(planId, user.getUser().getId());
+
+        return new CommonResponse<>(String.format("%s가 삭제되었습니다.", planId));
+    }
+
+    @PutMapping()
+    public CommonResponse<String> modify(@RequestBody PlanModifyRequest request, Authentication auth){
+        CustomUserDetail user = (CustomUserDetail) auth.getPrincipal();
+
+        planService.modify(request.getPlanId(), user.getUser().getId(), request);
+
+        return new CommonResponse<>("수정완료");
     }
 
 }
