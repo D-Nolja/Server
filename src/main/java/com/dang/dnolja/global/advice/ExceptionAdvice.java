@@ -62,6 +62,11 @@ public class ExceptionAdvice {
         return new CommonResponse<>(ResultCode.ERROR, e);
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public CommonResponse invalidAuthorityException(InvalidAuthorityException e){
+        return new CommonResponse<>(ResultCode.ERROR, e);
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(CrawlingException.class)
     public CommonResponse<?> crawlingException(CrawlingException e){
@@ -69,6 +74,8 @@ public class ExceptionAdvice {
         error.put("error", "크롤링이 실패했습니다");
         return new CommonResponse<>(ResultCode.ERROR, e, error);
     }
+
+
 
 }
 

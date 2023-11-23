@@ -91,6 +91,9 @@ CREATE TABLE IF NOT EXISTS `D_Nolja`.`Plan` (
                                                 `end` VARCHAR(30) NOT NULL,
                                                 `created_at` TIMESTAMP NOT NULL DEFAULT current_timestamp,
                                                 `modified_at` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+                                                `review_title` VARCHAR(100),
+                                                `review_img` VARCHAR(500),
+                                                `review_contents` VARCHAR(1000),
                                                 PRIMARY KEY (`plan_id`),
     INDEX `fk_Plan_Users1_idx` (`user_id` ASC) VISIBLE,
     CONSTRAINT `fk_Plan_Users1` FOREIGN KEY (`user_id`) REFERENCES `D_Nolja`.`Users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION

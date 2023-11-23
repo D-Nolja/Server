@@ -36,7 +36,7 @@ public class PlanController {
 
     }
 
-    @GetMapping("/my")
+    @GetMapping()
     public CommonResponse<PlanListDto> getMyList(Authentication auth, @ModelAttribute @Valid  PlanListRequest request,  BindingResult bindingResult){
         CustomUserDetail user = (CustomUserDetail) auth.getPrincipal();
         PlanListDto result = planService.getMyList(user.getUser().getId(), request);
@@ -44,12 +44,7 @@ public class PlanController {
         return new CommonResponse<>(result);
     }
 
-    @GetMapping()
-    public CommonResponse<PlanListDto> getList(@ModelAttribute @Valid PlanListRequest request ,  BindingResult bindingResult){
-        PlanListDto result = planService.getList(request);
-        log.debug("[PlanController getList] request :: {}",request);
-        return new CommonResponse<>(result);
-    }
+
 
     @GetMapping("/{id}")
     public CommonResponse<PlanDetailDto> getDetail(@PathVariable("id") Long planId) throws NotFoundException {
