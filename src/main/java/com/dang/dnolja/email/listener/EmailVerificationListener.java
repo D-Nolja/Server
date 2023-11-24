@@ -46,7 +46,7 @@ public class EmailVerificationListener implements ApplicationListener<UserRegist
         StringBuffer buffer = new StringBuffer();
         buffer.append(user.getUsername()).append("님 댕놀자 가입을 환영합니다. ").append(System.lineSeparator()).append(System.lineSeparator());
 
-        buffer.append("계정 활성화를 위해 다음 링크로 접속해주세요 : http://localhost:8080/verify/email?id=").append(verificationId);
+        buffer.append("계정 활성화를 위해 다음 링크로 접속해주세요 : http://D-nolja-prod.eba-pk7qjxkg.ap-northeast-2.elasticbeanstalk.com/verify/email?id=").append(verificationId);
         buffer.append(System.lineSeparator()).append(System.lineSeparator());
         buffer.append("올림,").append(System.lineSeparator()).append("댕놀자 Team");
         return buffer.toString();
