@@ -1,63 +1,52 @@
 # DNoljaServer
 
-서버 주소 :
- D-nolja-prod.eba-pk7qjxkg.ap-northeast-2.elasticbeanstalk.com
+## System Architecture 
+<img width="474" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/dea8101c-729c-4229-bf0b-7e0f7d957c86">
 
-## 1. 엘라스틱 빈스톡 및 Github Action 활용 무중단 ci / cd 구축 
-![image](https://github.com/D-Nolja/Server/assets/119592507/dcd3ba1b-0751-436b-8483-4100078c30f7)
-
-### 1-1. 배포 스크립트 
-![image](https://github.com/D-Nolja/Server/assets/119592507/59e1fb29-5bc5-44a8-bc2d-982edd0ce5a3)
+- gitAction 및 엘라스틱 빈스톡을 활용해 CI/CD 환경을 구축하였습니다.
 
 
-### 1-2. 결과
-![image](https://github.com/D-Nolja/Server/assets/119592507/4482f2f0-070b-4ac2-9928-109660c28f23)
-<img width="906" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/40d5f827-5ead-4e55-806d-7d473c162a20">
+
+## 기능 소개 
+### 1. 회원가입 및 로그인
+<img width="452" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/e15fd9c3-e2f6-4d09-8b75-bc510b284fcf">
+<img width="521" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/03793cbc-461c-4ffc-8c41-9195e33e41ca">
+
+- jwt활용 로그인 로그아웃 구현
+- 회원 가입시 메일 인증 로직 구현
+
+### 2. 시설 조회 및 여행 계획 생성 
+<img width="448" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/8e66bd52-6e53-4217-8934-b6aa7c72caa7">
+
+- Harvarsine공식 활용 현재 지도 내 최단 거리 조회 기능
+- 검색어 및 카테고리 혼합 검색 기능
+- 드래그 기반으로 원하는 목적지를 원하는 일차에 설정 가능합니다. 
+
+### 3. 여행 계획 기반 후기 생성 가능 
+<img width="455" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/1bb5d68d-cbb9-42be-8e73-79db5fa801a8">
+
+### 4. 메인 페이지 내 뉴스 크롤링 기능 
+<img width="456" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/f087877a-4cb4-45bb-8eb8-8783147a6568">
 
 
-## 2. 현재 좌표 기준 최단거리 시설 조회
-실제 url : D-nolja-prod.eba-pk7qjxkg.ap-northeast-2.elasticbeanstalk.com/recommendation/spot?x=126.53&y=33.49&limit=10&maxCount=10
-![image](https://github.com/D-Nolja/Server/assets/119592507/77357fbb-6c61-4b5b-b169-2b052021cd1b)
+## 구현 시 고민한 부분 
+### 1. 메일 인증시 멀티 스레딩을 활용해 응답 시간 단축 
 
-### 2-1. 관련 소스 코드 및 활용 알고리즘 
-- 하버 사인 공식 활용 두 지점 사이의 거리 측정
-  ![image](https://github.com/D-Nolja/Server/assets/119592507/d9a0fb57-d1fc-4942-a339-0ce3fda72fef)
-  ![image](https://github.com/D-Nolja/Server/assets/119592507/00e52e48-b3e4-47cb-8473-9cfa5a30aee3)
+#### a. 전체 메일 로직 
+<img width="417" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/62093d01-fd68-48a9-9131-5e61597ddcd1">
 
-- 측정 거리 바탕으로 정렬 알고리즘 활용
-  ![image](https://github.com/D-Nolja/Server/assets/119592507/6b2146e0-9d57-4288-95ff-12a0b61d9ee3)
+메일 전송까지 하나의 스레드에서 처리하므로 전체시간 평균 6.47초를 소요하여 성능저하가 있었습니다. 
 
-## 3. 회원가입 (+유저 조회, 유저 상태 업데이트 )
+#### b. 스레딩 활용 성능 개선 
+<img width="421" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/22ac2208-07a1-432d-9ab7-80b4055ad1c8">
 
-### 3-1. AOP 및 Validation 어노테이션 활용 put, post 메서드 실행시 자동 dto 유효성 검사 
-![image](https://github.com/D-Nolja/Server/assets/119592507/5bc7d213-3ccf-4aac-9636-1174bfc85636)
-![image](https://github.com/D-Nolja/Server/assets/119592507/c37bf413-38d3-4da9-88d5-4c426a2dc8ea)
+- 스레딩을 활용하여 메일 발송부를 다른 스레드에게 위임하도록 코드를 수정하였습니다.
+- 평균 500ms 대로 성능을 개선하였습니다.
 
-- 유저명 작성이 정확한 양식 및 null 체크 지켰는지 정규 표현식을 통해 확인 
-- 이메일에서는 null 체크 및 정확한 이메일 양식을 지켰는지 정규 표현식을 통해 확인
-- 이후 공통 응답 객체를 통해 어디서 오류가 발생했는지 명확하게 표시함
+### 2. 현재 위치 기준 최단거리 순 시설물 조회 구현 
+<img width="424" alt="image" src="https://github.com/D-Nolja/Server/assets/119592507/7b2b6c7b-4897-491b-80c7-28025b0dbf6a">
 
-소스코드 1. aop
-소스코드 2. validation
-![image](https://github.com/D-Nolja/Server/assets/119592507/4617a666-240a-429b-affe-b0466e52c37a)
-![image](https://github.com/D-Nolja/Server/assets/119592507/4522c743-016b-41a7-b8b6-9ae696ec25cb)
+- 대부분의 관련 외부 api는 하루 사용량제한이 있어서 실 서비스에서 사용하기 어렵습니다.
 
-
-### goolge mail api 활용 인증 메일 (유저 조회 및 업데이트 로직이 여기서 사용됩니다.) 
-![image](https://github.com/D-Nolja/Server/assets/119592507/749702f1-212d-45cd-8670-a14fa2af3081)
-![image](https://github.com/D-Nolja/Server/assets/119592507/17b3200f-b575-4691-996d-b5bc06859546)
-
-1. 회원가입시 uuid를 생성하여 EmailValidation 테이블의 유저 이메일과 함께 저장
-2. 동시에 ApplicationEventPublisher로 등록 이벤트를 발생시킴 
-3. 등록 이벤트 발생과 동시에 EventListener에서 uuid를 생성한 후 uuid를 활용해 valid check url을 생성하여 유저에게 이메일 발송
-4. 유저가 클릭시 url 내 uuid를 활용해 EmailValidation 테이블 내 칼럼을 찾은 후 email을 바탕으로 유저를 찾아 유저 도메인 내 verified 업데이트 됨 
-
-소스코드 1. EmailVerificaionService 
-![image](https://github.com/D-Nolja/Server/assets/119592507/fa211c00-7933-4b30-ae4b-a8b2698af48e)
-
-소스코드 2. EmailVeirifcatio Controller 
-![image](https://github.com/D-Nolja/Server/assets/119592507/d7ee2292-f42d-4d0e-b364-45edbc2c81e8)
-
-소스코드 3. EmailVerification Listener
-![image](https://github.com/D-Nolja/Server/assets/119592507/0a183e03-0d43-4224-9cfa-0f8a23a1ba7a)
-
+  
+- 때문에 Harversine 공식 활용하여 로우 레벨에서 최단거리 조회 기능을 구현하였습니다.
